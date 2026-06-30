@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Portal</title>
+
+    <style>
+
+    body{
+        font-family:Arial;
+        margin:0;
+        background:#f4f4f4;
+    }
+
+    header{
+        background:#007bff;
+        color:white;
+        text-align:center;
+        padding:20px;
+    }
+
+    .container{
+        width:80%;
+        margin:auto;
+    }
+
+    .job-card{
+        background:white;
+        margin:20px;
+        padding:20px;
+        border-radius:10px;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    </style>
+
+</head>
+<body>
+
+<header>
+    <h1>Job Portal</h1>
+</header>
+
+<div class="container">
+
+    {% for job in jobs %}
+
+    <div class="job-card">
+
+        <h2>{{ job.title }}</h2>
+
+        <p>
+            <strong>Company:</strong>
+            {{ job.company }}
+        </p>
+
+        <p>
+            <strong>Location:</strong>
+            {{ job.location }}
+        </p>
+
+        <p>
+            <strong>Salary:</strong>
+            {{ job.salary }}
+        </p>
+
+        <p>{{ job.description }}</p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

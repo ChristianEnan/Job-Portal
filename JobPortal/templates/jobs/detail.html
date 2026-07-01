@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ job.title }} - Job Portal</title>
+</head>
+<body>
+    <h1>{{ job.title }}</h1>
+    <p><strong>Company:</strong> {{ job.company }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Salary:</strong> {{ job.salary }}</p>
+    <p><strong>Type:</strong> {{ job.get_employment_type_display }}</p>
+    <p>{{ job.description }}</p>
+    <p><a href="/">Back to jobs</a></p>
+</body>
+</html>

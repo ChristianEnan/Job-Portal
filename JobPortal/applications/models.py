@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from jobs.models import Job
 
@@ -16,12 +17,18 @@ class Application(models.Model):
         HIRED = "hired", "Hired"
 
     job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applications")
-    candidate = models.ForeignKey(User, on_delete=models.CASCADE, related_name="applications")
+    candidate = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="applications",
+        null=True,
+        blank=True,
+    )
     cover_letter = models.TextField(blank=True)
     resume = models.FileField(upload_to="resumes/", blank=True)
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.APPLIED)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ["-created_at"]

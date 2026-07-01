@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Job(models.Model):
@@ -20,7 +21,7 @@ class Job(models.Model):
     )
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=timezone.now)
 
     class Meta:
         ordering = ["-created_at"]

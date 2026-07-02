@@ -1,288 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ job.title }} - Job Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <style>
-    :root{
-        --bg:#f6f8fc;
-        --surface:#ffffff;
-        --primary:#0f4cd9;
-        --primary-dark:#0a3598;
-        --ink:#1c2537;
-        --muted:#63708a;
-        --line:#dce3f0;
-        --ok:#059669;
-        --warn:#dc2626;
-        --info:#1d4ed8;
-        --shadow:0 18px 30px rgba(20, 34, 67, 0.08);
-    }
+{% extends 'base.html' %}
 
-    body{
-        margin:0;
-        font-family:'Manrope',sans-serif;
-        background:var(--bg);
-        color:var(--ink);
-    }
+{% block content %}
 
-    .topbar{
-        background:linear-gradient(135deg, #0f4cd9 0%, #0d66f0 45%, #13a3f2 100%);
-        color:white;
-        padding:18px 20px;
-    }
+<div class="container mt-5">
 
-    .topbar-inner{
-        max-width:1080px;
-        margin:0 auto;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
+<h2>{{ job.title }}</h2>
 
-    .brand{
-        font-family:'Space Grotesk',sans-serif;
-        font-weight:700;
-        font-size:1.2rem;
-        letter-spacing:0.2px;
-    }
+<hr>
 
-    .back-link{
-        color:white;
-        text-decoration:none;
-        border:1px solid rgba(255,255,255,0.35);
-        padding:8px 12px;
-        border-radius:10px;
-        font-weight:600;
-    }
+<h5>Company</h5>
+<p>{{ job.company }}</p>
 
-    .wrap{
-        max-width:1080px;
-        margin:28px auto 64px;
-        padding:0 20px;
-        display:grid;
-        grid-template-columns:2fr 1fr;
-        gap:18px;
-    }
+<h5>Location</h5>
+<p>{{ job.location }}</p>
 
-    .card{
-        background:var(--surface);
-        border:1px solid var(--line);
-        border-radius:16px;
-        box-shadow:var(--shadow);
-        padding:24px;
-    }
+<h5>Salary</h5>
+<p>{{ job.salary }}</p>
 
-    .title{
-        margin:0;
-        font-family:'Space Grotesk',sans-serif;
-        font-size:2rem;
-    }
+<h5>Description</h5>
 
-    .meta{
-        display:flex;
-        flex-wrap:wrap;
-        gap:10px 16px;
-        color:var(--muted);
-        margin:14px 0 18px;
-    }
+<p>{{ job.description }}</p>
 
-    .pill{
-        display:inline-block;
-        font-size:0.76rem;
-        font-weight:700;
-        padding:5px 10px;
-        border-radius:999px;
-        background:#e0ebff;
-        color:#113e9f;
-        margin-bottom:10px;
-    }
+<a href="/" class="btn btn-primary">
+Back
+</a>
 
-    .description{
-        line-height:1.7;
-        color:#2f3e5c;
-        white-space:pre-line;
-    }
+</div>
 
-    .section-title{
-        margin:0 0 14px;
-        font-family:'Space Grotesk',sans-serif;
-        font-size:1.2rem;
-    }
-
-    .field{
-        margin-bottom:12px;
-    }
-
-    label{
-        display:block;
-        font-weight:700;
-        font-size:0.9rem;
-        margin-bottom:6px;
-    }
-
-    input,
-    textarea{
-        width:100%;
-        box-sizing:border-box;
-        border:1px solid var(--line);
-        border-radius:10px;
-        padding:10px 12px;
-        font-family:inherit;
-        font-size:0.95rem;
-    }
-
-    input:focus,
-    textarea:focus{
-        outline:none;
-        border-color:#86a4ff;
-        box-shadow:0 0 0 3px rgba(66, 115, 249, 0.18);
-    }
-
-    textarea{
-        min-height:120px;
-        resize:vertical;
-    }
-
-    .btn{
-        border:none;
-        background:var(--primary);
-        color:white;
-        font-weight:700;
-        border-radius:10px;
-        padding:11px 14px;
-        cursor:pointer;
-    }
-
-    .btn:hover{
-        background:var(--primary-dark);
-    }
-
-    .msg{
-        border-radius:10px;
-        padding:11px 12px;
-        margin-bottom:10px;
-        font-size:0.92rem;
-    }
-
-    .msg-success{
-        background:#ecfdf3;
-        color:var(--ok);
-        border:1px solid #a7f3d0;
-    }
-
-    .msg-error{
-        background:#fef2f2;
-        color:var(--warn);
-        border:1px solid #fecaca;
-    }
-
-    .msg-info{
-        background:#eff6ff;
-        color:var(--info);
-        border:1px solid #bfdbfe;
-    }
-
-    .related-item{
-        border:1px solid var(--line);
-        border-radius:12px;
-        padding:12px;
-        margin-bottom:10px;
-    }
-
-    .related-item h4{
-        margin:0 0 4px;
-        font-size:1rem;
-    }
-
-    .related-item p{
-        margin:0;
-        color:var(--muted);
-        font-size:0.9rem;
-    }
-
-    .related-item a{
-        display:inline-block;
-        margin-top:8px;
-        color:var(--primary);
-        text-decoration:none;
-        font-weight:700;
-    }
-
-    .hint{
-        color:var(--muted);
-        font-size:0.86rem;
-    }
-
-    @media (max-width:900px){
-        .wrap{
-            grid-template-columns:1fr;
-        }
-    }
-    </style>
-</head>
-<body>
-    <header class="topbar">
-        <div class="topbar-inner">
-            <div class="brand">Job Portal</div>
-            <a class="back-link" href="/">Back To Jobs</a>
-        </div>
-    </header>
-
-    <main class="wrap">
-        <section class="card">
-            <span class="pill">{{ job.get_employment_type_display }}</span>
-            <h1 class="title">{{ job.title }}</h1>
-
-            <div class="meta">
-                <span><strong>Company:</strong> {{ job.company }}</span>
-                <span><strong>Location:</strong> {{ job.location }}</span>
-                <span><strong>Salary:</strong> {{ job.salary }}</span>
-                <span><strong>Posted:</strong> {{ job.created_at|date:"M d, Y" }}</span>
-            </div>
-
-            <h3 class="section-title">Role Overview</h3>
-            <p class="description">{{ job.description }}</p>
-        </section>
-
-        <aside class="card">
-            <h3 class="section-title">Quick Apply</h3>
-
-            {% if messages %}
-                {% for message in messages %}
-                <div class="msg {% if message.tags == 'success' %}msg-success{% elif message.tags == 'error' %}msg-error{% else %}msg-info{% endif %}">
-                    {{ message }}
-                </div>
-                {% endfor %}
-            {% endif %}
-
-            <form method="post" action="/jobs/{{ job.id }}/apply/">
-                {% csrf_token %}
-                <div class="field">
-                    <label for="username">Candidate Username</label>
-                    <input id="username" name="username" type="text" placeholder="e.g. john_doe" required>
-                </div>
-                <div class="field">
-                    <label for="cover_letter">Cover Letter</label>
-                    <textarea id="cover_letter" name="cover_letter" placeholder="Why are you a strong fit for this role?"></textarea>
-                </div>
-                <button class="btn" type="submit">Submit Application</button>
-                <p class="hint">No account? Create one using /accounts/create/ endpoint first.</p>
-            </form>
-
-            {% if related_jobs %}
-            <h3 class="section-title" style="margin-top:22px;">Related Jobs</h3>
-                {% for item in related_jobs %}
-                <div class="related-item">
-                    <h4>{{ item.title }}</h4>
-                    <p>{{ item.company }} • {{ item.location }}</p>
-                    <a href="/jobs/{{ item.id }}/">View</a>
-                </div>
-                {% endfor %}
-            {% endif %}
-        </aside>
-    </main>
-</body>
-</html>
+{% endblock %}

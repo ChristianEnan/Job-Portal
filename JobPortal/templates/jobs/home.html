@@ -1,367 +1,153 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Job Portal | Find Your Next Role</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+{% extends 'base.html' %}
 
-    <style>
-    :root{
-        --bg:#f6f8fc;
-        --surface:#ffffff;
-        --primary:#0f4cd9;
-        --primary-dark:#0a3598;
-        --ink:#1c2537;
-        --muted:#63708a;
-        --line:#dce3f0;
-        --accent:#14b8a6;
-        --shadow:0 18px 30px rgba(20, 34, 67, 0.08);
-    }
+{% block title %}
+Home
+{% endblock %}
 
-    body{
-        font-family:'Manrope',sans-serif;
-        margin:0;
-        color:var(--ink);
-        background:
-            radial-gradient(circle at 10% -10%, #dbeafe 0, transparent 32%),
-            radial-gradient(circle at 90% 20%, #ccfbf1 0, transparent 30%),
-            var(--bg);
-    }
-
-    .hero{
-        background:linear-gradient(135deg, #0f4cd9 0%, #0d66f0 40%, #13a3f2 100%);
-        color:#fff;
-        padding:64px 20px 76px;
-        position:relative;
-        overflow:hidden;
-    }
-
-    .hero::after{
-        content:"";
-        position:absolute;
-        width:420px;
-        height:420px;
-        border-radius:50%;
-        right:-120px;
-        top:-180px;
-        background:rgba(255,255,255,0.15);
-    }
-
-    .hero-inner{
-        max-width:1080px;
-        margin:0 auto;
-        position:relative;
-        z-index:2;
-    }
-
-    .hero h1{
-        margin:0 0 12px;
-        font-family:'Space Grotesk',sans-serif;
-        font-size:clamp(2rem, 4vw, 3rem);
-        line-height:1.15;
-    }
-
-    .hero p{
-        margin:0;
-        opacity:0.95;
-        max-width:700px;
-        font-size:1.05rem;
-    }
-
-    .hero-actions{
-        display:flex;
-        gap:12px;
-        flex-wrap:wrap;
-        margin-top:22px;
-    }
-
-    .hero-link{
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        text-decoration:none;
-        padding:12px 16px;
-        border-radius:12px;
-        font-weight:800;
-        border:1px solid rgba(255,255,255,0.28);
-        color:white;
-        background:rgba(255,255,255,0.14);
-        backdrop-filter:blur(8px);
-    }
-
-    .hero-link.primary{
-        background:#fff;
-        color:var(--primary);
-        border-color:#fff;
-    }
-
-    .panel{
-        max-width:1080px;
-        margin:-34px auto 0;
-        padding:0 20px;
-        position:relative;
-        z-index:5;
-    }
-
-    .search-box{
-        background:var(--surface);
-        border:1px solid var(--line);
-        border-radius:18px;
-        box-shadow:var(--shadow);
-        padding:16px;
-    }
-
-    .search-form{
-        display:grid;
-        grid-template-columns:2fr 1.5fr 1.2fr auto;
-        gap:10px;
-    }
-
-    .input,
-    .select,
-    .btn{
-        border-radius:12px;
-        border:1px solid var(--line);
-        font-family:inherit;
-        font-size:0.95rem;
-        padding:11px 12px;
-    }
-
-    .input:focus,
-    .select:focus{
-        outline:none;
-        border-color:#86a4ff;
-        box-shadow:0 0 0 3px rgba(66, 115, 249, 0.18);
-    }
-
-    .btn{
-        border:none;
-        background:var(--primary);
-        color:white;
-        font-weight:700;
-        cursor:pointer;
-        transition:background 0.2s ease, transform 0.2s ease;
-    }
-
-    .btn:hover{
-        background:var(--primary-dark);
-        transform:translateY(-1px);
-    }
-
-    .container{
-        max-width:1080px;
-        margin:24px auto 64px;
-        padding:0 20px;
-    }
-
-    .meta{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        gap:12px;
-        margin:18px 0;
-        color:var(--muted);
-    }
-
-    .jobs-grid{
-        display:grid;
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        gap:16px;
-    }
-
-    .job-card{
-        background:var(--surface);
-        border:1px solid var(--line);
-        border-radius:16px;
-        box-shadow:var(--shadow);
-        padding:20px;
-        animation:fadeInUp 0.4s ease both;
-    }
-
-    .job-title{
-        margin:0;
-        font-size:1.2rem;
-        font-family:'Space Grotesk',sans-serif;
-    }
-
-    .job-top{
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-start;
-        gap:12px;
-    }
-
-    .pill{
-        font-size:0.76rem;
-        font-weight:700;
-        padding:5px 10px;
-        border-radius:999px;
-        background:#e0ebff;
-        color:#113e9f;
-        white-space:nowrap;
-    }
-
-    .job-meta{
-        display:flex;
-        flex-wrap:wrap;
-        gap:8px 14px;
-        margin:14px 0;
-        color:var(--muted);
-        font-size:0.94rem;
-    }
-
-    .job-summary{
-        color:#33415f;
-        margin:0 0 18px;
-        line-height:1.55;
-    }
-
-    .card-actions{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-
-    .detail-link{
-        text-decoration:none;
-        color:white;
-        background:var(--primary);
-        padding:10px 14px;
-        border-radius:10px;
-        font-weight:700;
-        transition:background 0.2s ease;
-    }
-
-    .detail-link:hover{
-        background:var(--primary-dark);
-    }
-
-    .empty{
-        border:1px dashed #9fb3de;
-        border-radius:16px;
-        padding:34px 20px;
-        text-align:center;
-        background:white;
-    }
-
-    .empty h3{
-        margin:0 0 8px;
-        font-family:'Space Grotesk',sans-serif;
-    }
-
-    .small{
-        color:var(--muted);
-        font-size:0.9rem;
-    }
-
-    @keyframes fadeInUp{
-        from{
-            opacity:0;
-            transform:translateY(8px);
-        }
-        to{
-            opacity:1;
-            transform:translateY(0);
-        }
-    }
-
-    @media (max-width:900px){
-        .search-form{
-            grid-template-columns:1fr 1fr;
-        }
-        .jobs-grid{
-            grid-template-columns:1fr;
-        }
-    }
-
-    @media (max-width:620px){
-        .hero{
-            padding:48px 16px 64px;
-        }
-        .panel,
-        .container{
-            padding:0 14px;
-        }
-        .search-form{
-            grid-template-columns:1fr;
-        }
-        .meta{
-            flex-direction:column;
-            align-items:flex-start;
-        }
-    }
-
-    </style>
-
-</head>
-<body>
+{% block content %}
 
 <section class="hero">
-    <div class="hero-inner">
-        <h1>Find A Role That Fits Your Craft</h1>
-        <p>Discover opportunities across product, engineering, design, and operations with a fast and focused hiring experience.</p>
-        <div class="hero-actions">
-            <a class="hero-link primary" href="/accounts/complete/">Complete Profile</a>
-            <a class="hero-link" href="#jobs">Browse Jobs</a>
-        </div>
-    </div>
-</section>
 
-<section class="panel">
-    <div class="search-box">
-        <form method="get" class="search-form">
-            <input class="input" type="text" name="q" placeholder="Search by job title" value="{{ query }}">
-            <input class="input" type="text" name="location" placeholder="Filter by location" value="{{ location }}">
-            <select class="select" name="type">
-                <option value="">All types</option>
-                {% for key, label in employment_types %}
-                <option value="{{ key }}" {% if employment_type == key %}selected{% endif %}>{{ label }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn" type="submit">Search</button>
-        </form>
-    </div>
-</section>
+<div class="container">
 
-<div class="container" id="jobs">
-    <div class="meta">
-        <span><strong>{{ jobs|length }}</strong> open positions</span>
-        <span class="small">Tip: Manage and add jobs from /admin/</span>
-    </div>
+<div class="row">
 
-    {% if jobs %}
-    <div class="jobs-grid">
-        {% for job in jobs %}
-        <article class="job-card">
-            <div class="job-top">
-                <h2 class="job-title">{{ job.title }}</h2>
-                <span class="pill">{{ job.get_employment_type_display }}</span>
-            </div>
+<div class="col-lg-7">
 
-            <div class="job-meta">
-                <span><strong>Company:</strong> {{ job.company }}</span>
-                <span><strong>Location:</strong> {{ job.location }}</span>
-                <span><strong>Salary:</strong> {{ job.salary }}</span>
-            </div>
+<h1>Find Your Dream Job</h1>
 
-            <p class="job-summary">{{ job.description|truncatechars:165 }}</p>
+<p>
 
-            <div class="card-actions">
-                <span class="small">Posted on {{ job.created_at|date:"M d, Y" }}</span>
-                <a class="detail-link" href="/jobs/{{ job.id }}/">View Details</a>
-            </div>
-        </article>
-        {% endfor %}
-    </div>
-    {% else %}
-    <div class="empty">
-        <h3>No jobs match your search</h3>
-        <p class="small">Try a different title or location, or add jobs in the admin panel.</p>
-    </div>
-    {% endif %}
+Search thousands of jobs from top companies.
+
+</p>
+
+<a href="#jobs"
+class="btn btn-light btn-lg mt-3">
+
+Browse Jobs
+
+</a>
+
 </div>
 
-</body>
-</html>
+</div>
+
+</div>
+
+</section>
+
+<div class="container">
+
+<div class="search-box">
+
+<div class="row">
+
+<div class="col-md-5">
+
+<input
+type="text"
+class="form-control"
+placeholder="Job Title">
+
+</div>
+
+<div class="col-md-5">
+
+<input
+type="text"
+class="form-control"
+placeholder="Location">
+
+</div>
+
+<div class="col-md-2">
+
+<button class="btn btn-primary w-100">
+    Search
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="container mt-5"
+id="jobs">
+
+<h2 class="mb-4">
+
+Latest Jobs
+
+</h2>
+
+<div class="row">
+
+{% for job in jobs %}
+
+<div class="col-md-4 mb-4">
+
+<div class="job-card">
+
+<h4>
+
+{{ job.title }}
+
+</h4>
+
+<p>
+
+<strong>Company:</strong>
+
+{{ job.company }}
+
+</p>
+
+<p>
+
+<strong>Location:</strong>
+
+{{ job.location }}
+
+</p>
+
+<p>
+
+<strong>Salary:</strong>
+
+{{ job.salary }}
+
+</p>
+
+<p>
+
+{{ job.description|truncatechars:120 }}
+
+</p>
+
+<a href="{% url 'job_detail' job.id %}" class="btn btn-primary">
+    View Details
+</a>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="alert alert-info">
+
+No Jobs Available
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

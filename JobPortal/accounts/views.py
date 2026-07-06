@@ -1,7 +1,9 @@
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.decorators import login_required
+from .models import CandidateProfile
+from .forms import CandidateProfileForm
 
 def register(request):
 
@@ -60,6 +62,46 @@ def user_login(request):
 
 
 def user_logout(request):
+
+    logout(request)
+
+    return redirect("home")
+
+    
+@login_required
+    
+def profile(request):
+
+    profile, created = CandidateProfile.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == "POST":
+
+        form = CandidateProfileForm(
+            request.POST,
+            request.FILES,
+            instance=profile
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect("profile")
+
+    else:
+
+        form = CandidateProfileForm(instance=profile)
+
+    return render(
+        request,
+        "accounts/profile.html",
+        {
+            "form": form,
+            "profile": profile
+        }
+    )
 
     logout(request)
 

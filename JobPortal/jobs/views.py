@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404 ,  redirect
-from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 from applications.models import Application
 from .models import Job
@@ -27,40 +27,37 @@ def job_detail(request, id):
     })
 
 
-@require_POST
+@login_required
+
 def apply_to_job(request, job_id):
-    try:
-        job = Job.objects.get(pk=job_id, is_active=True)
-    except Job.DoesNotExist as exc:
-        raise Http404("Job not found") from exc
 
-    username = request.POST.get("username", "").strip()
-    cover_letter = request.POST.get("cover_letter", "").strip()
+    job = get_object_or_404(Job, id=job_id)
 
-    if not username:
-        messages.error(request, "Username is required to apply.")
-        return redirect("job-detail", id=job.id)
+    already = Application.objects.filter(
+        candidate=request.user,
+        job=job
+    ).exists()
 
-    try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        messages.error(
+    if already:
+
+        messages.warning(
             request,
-            "Candidate account not found. Create one first in /accounts/create/.",
+            "You already applied for this job."
         )
-        return redirect("job-detail", id=job.id)
 
-    application, created = Application.objects.get_or_create(
-        job=job,
-        candidate=user,
-        defaults={"cover_letter": cover_letter},
+        return redirect("job_detail", id=job.id)
+
+    Application.objects.create(
+
+        candidate=request.user,
+
+        job=job
+
     )
 
-    if created:
-        messages.success(request, f"Application submitted for {job.title}.")
-    else:
-        messages.info(request, f"You already applied for {job.title}.")
+    messages.success(
+        request,
+        "Application Submitted Successfully."
+    )
 
-    return redirect("job-detail", id=job.id)
-
-
+    return redirect("job_detail", id=job.id)

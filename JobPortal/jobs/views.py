@@ -12,19 +12,31 @@ User = get_user_model()
 
 
 def home(request):
-    jobs = Job.objects.all()
 
-    return render(request, 'jobs/home.html', {
-        'jobs': jobs
-    })
+    jobs = Job.objects.filter(is_active=True)
 
+    search = request.GET.get("search")
+    location = request.GET.get("location")
+    job_type = request.GET.get("type")
 
-def job_detail(request, id):
-    job = get_object_or_404(Job, id=id)
+    if search:
+        jobs = jobs.filter(title__icontains=search)
 
-    return render(request, 'jobs/detail.html', {
-        'job': job
-    })
+    if location:
+        jobs = jobs.filter(location__icontains=location)
+
+    if job_type:
+        jobs = jobs.filter(employment_type=job_type)
+
+    context = {
+        "jobs": jobs,
+        "search": search,
+        "location": location,
+        "job_type": job_type,
+        "employment_types": Job.EmploymentType.choices,
+    }
+
+    return render(request, "jobs/home.html", context)
 
 
 @login_required

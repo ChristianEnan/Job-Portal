@@ -38,6 +38,16 @@ def home(request):
 
     return render(request, "jobs/home.html", context)
 
+def job_detail(request, id):
+    job = get_object_or_404(Job, id=id)
+
+    return render(
+        request,
+        "jobs/detail.html",
+        {
+            "job": job
+        }
+    )
 
 @login_required
 

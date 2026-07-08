@@ -1,64 +1,20 @@
-from django.contrib.auth import get_user_model
-from django.http import JsonResponse
-from django.views.decorators.http import require_GET, require_POST
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
-from jobs.models import Job
 from .models import Application
 
 
-User = get_user_model()
+@login_required
+def my_applications(request):
 
+    applications = Application.objects.filter(
+        candidate=request.user
+    ).select_related("job")
 
-@require_GET
-def application_list(request):
-    applications = Application.objects.select_related("job", "candidate").all()
-    data = [
+    return render(
+        request,
+        "applications/my_applications.html",
         {
-            "id": app.id,
-            "job": app.job.title,
-            "candidate": app.candidate.get_username() if app.candidate else "unknown",
-            "status": app.status,
-            "created_at": app.created_at.isoformat(),
+            "applications": applications
         }
-        for app in applications
-    ]
-    return JsonResponse({"applications": data})
-
-
-@require_POST
-def apply_for_job(request):
-    username = request.POST.get("username", "").strip()
-    job_id = request.POST.get("job_id", "").strip()
-    cover_letter = request.POST.get("cover_letter", "").strip()
-
-    if not username or not job_id:
-        return JsonResponse({"error": "username and job_id are required"}, status=400)
-
-    try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        return JsonResponse({"error": "candidate does not exist"}, status=404)
-
-    try:
-        job = Job.objects.get(pk=job_id, is_active=True)
-    except Job.DoesNotExist:
-        return JsonResponse({"error": "job not found"}, status=404)
-
-    application, created = Application.objects.get_or_create(
-        job=job,
-        candidate=user,
-        defaults={"cover_letter": cover_letter},
-    )
-
-    if not created:
-        return JsonResponse({"error": "application already exists"}, status=400)
-
-    return JsonResponse(
-        {
-            "id": application.id,
-            "job": application.job.title,
-            "candidate": application.candidate.get_username() if application.candidate else "unknown",
-            "status": application.status,
-        },
-        status=201,
     )

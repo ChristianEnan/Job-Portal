@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import CandidateProfile
 from .forms import CandidateProfileForm
+from jobs.models import Job, Company
+from applications.models import Application
 
 def register(request):
 
@@ -106,3 +108,29 @@ def profile(request):
     logout(request)
 
     return redirect("home")
+
+@login_required
+def dashboard(request):
+
+    applied_jobs = Application.objects.filter(
+        candidate=request.user
+    ).count()
+
+    total_jobs = Job.objects.filter(
+        is_active=True
+    ).count()
+
+    total_companies = Company.objects.count()
+
+    context = {
+        "applied_jobs": applied_jobs,
+        "total_jobs": total_jobs,
+        "total_companies": total_companies,
+        "saved_jobs": 0,
+    }
+
+    return render(
+        request,
+        "accounts/dashboard.html",
+        context,
+    )

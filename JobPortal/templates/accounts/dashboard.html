@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Welcome {{ user.username }}
+    </h2>
+
+    <div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="card shadow text-center p-4">
+
+<h2>{{ applied_jobs }}</h2>
+
+<p>Applied Jobs</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center p-4">
+
+<h2>{{ total_jobs }}</h2>
+
+<p>Available Jobs</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center p-4">
+
+<h2>{{ total_companies }}</h2>
+
+<p>Companies</p>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow text-center p-4">
+
+<h2>{{ saved_jobs }}</h2>
+
+<p>Saved Jobs</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card shadow mt-5">
+
+<div class="card-header">
+
+<h4>
+
+Recent Applications
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>Job</th>
+
+<th>Company</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for app in user.application_set.all %}
+
+<tr>
+
+<td>{{ app.job.title }}</td>
+
+<td>{{ app.job.company.name }}</td>
+
+<td>
+
+<span class="badge bg-warning">
+
+Pending
+
+</span>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="3">
+
+No Applications Yet
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

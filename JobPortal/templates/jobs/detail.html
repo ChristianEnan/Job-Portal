@@ -18,6 +18,10 @@
 
 <p><strong>Company :</strong> {{ job.company }}</p>
 
+<a href="{% url 'company_detail' job.company.id %}">
+    {{ job.company.name }}
+</a>
+
 <p><strong>Location :</strong> {{ job.location }}</p>
 
 <p><strong>Salary :</strong> {{ job.salary }}</p>

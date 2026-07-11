@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from applications.models import Application
 from .models import Job
-
+from .models import Job, Company
 
 User = get_user_model()
 
@@ -83,3 +83,23 @@ def apply_to_job(request, job_id):
     )
 
     return redirect("job_detail", id=job.id)
+
+def company_detail(request, id):
+
+    company = get_object_or_404(Company, id=id)
+
+    jobs = Job.objects.filter(
+        company=company,
+        is_active=True
+    )
+
+    context = {
+        "company": company,
+        "jobs": jobs,
+    }
+
+    return render(
+        request,
+        "jobs/company_detail.html",
+        context,
+    )

@@ -131,9 +131,16 @@ Latest Jobs
             {{ job.title }}
         </h4>
 
-        <h6 class="text-primary">
-            {{ job.company }}
-        </h6>
+       <h6 class="text-primary">
+
+    <a href="{% url 'company_detail' job.company.id %}"
+       class="text-decoration-none">
+
+        {{ job.company.name }}
+
+    </a>
+
+</h6>
 
         <p>
             <i class="bi bi-geo-alt-fill"></i>

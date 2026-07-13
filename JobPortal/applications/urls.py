@@ -7,4 +7,11 @@ urlpatterns = [
         views.my_applications,
         name="my_applications",
     ),
+
+     path(
+        "save/<int:job_id>/",
+        views.save_job,
+        name="save_job"
+    ),
+
 ]

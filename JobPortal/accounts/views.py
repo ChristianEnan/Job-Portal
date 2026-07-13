@@ -6,6 +6,7 @@ from .models import CandidateProfile
 from .forms import CandidateProfileForm
 from jobs.models import Job, Company
 from applications.models import Application
+from applications.models import SavedJob
 
 def register(request):
 
@@ -116,18 +117,23 @@ def dashboard(request):
         candidate=request.user
     ).count()
 
+    applications = Application.objects.filter(candidate=request.user).select_related("job")
+
     total_jobs = Job.objects.filter(
         is_active=True
     ).count()
 
     total_companies = Company.objects.count()
 
+    saved_jobs = SavedJob.objects.filter(user=request.user).count()
+
     context = {
-        "applied_jobs": applied_jobs,
-        "total_jobs": total_jobs,
-        "total_companies": total_companies,
-        "saved_jobs": 0,
-    }
+    "applied_jobs": applied_jobs,
+    "total_jobs": total_jobs,
+    "total_companies": total_companies,
+    "saved_jobs": saved_jobs,
+    "applications": applications,
+}
 
     return render(
         request,

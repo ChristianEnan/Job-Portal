@@ -19,8 +19,22 @@ class Application(models.Model):
 
     applied_at = models.DateTimeField(auto_now_add=True)
 
+class SavedJob(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    job = models.ForeignKey(
+        Job,
+        on_delete=models.CASCADE
+    )
+
+    saved_at = models.DateTimeField(auto_now_add=True)
+
     class Meta:
-        unique_together = ("candidate", "job")
+        unique_together = ("user", "job")
 
     def __str__(self):
-        return f"{self.candidate.username} - {self.job.title}"
+        return f"{self.user.username} - {self.job.title}"

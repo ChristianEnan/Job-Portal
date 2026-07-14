@@ -39,3 +39,38 @@ def save_job(request, job_id):
         messages.warning(request, "Job already saved.")
 
     return redirect("job_detail", id=job.id)
+
+@login_required
+def saved_jobs(request):
+
+    saved_jobs = SavedJob.objects.filter(
+        user=request.user
+    ).select_related("job", "job__company")
+
+    context = {
+        "saved_jobs": saved_jobs
+    }
+
+    return render(
+        request,
+        "applications/saved_jobs.html",
+        context
+    )
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import SavedJob
+
+
+@login_required
+def unsave_job(request, job_id):
+
+    saved = SavedJob.objects.filter(
+        user=request.user,
+        job_id=job_id
+    )
+
+    if saved.exists():
+        saved.delete()
+
+    return redirect("saved_jobs")

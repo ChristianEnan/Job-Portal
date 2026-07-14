@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}
+Saved Jobs
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Saved Jobs
+    </h2>
+
+    <div class="row">
+
+        {% for saved in saved_jobs %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h5>
+                        {{ saved.job.title }}
+                    </h5>
+
+                    <p>
+                        <strong>Company:</strong>
+                        {{ saved.job.company.name }}
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        {{ saved.job.location }}
+                    </p>
+
+                    <a href="{% url 'job_detail' saved.job.id %}"
+                       class="btn btn-primary">
+
+                        View Job
+
+                    </a>
+
+                    <a href="{% url 'unsave_job' saved.job.id %}"
+                        class="btn btn-danger btn-sm">
+                    
+                        Remove
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="alert alert-info">
+
+            No Saved Jobs.
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

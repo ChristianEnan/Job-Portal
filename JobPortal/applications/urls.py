@@ -14,4 +14,15 @@ urlpatterns = [
         name="save_job"
     ),
 
+     path(
+       "saved/",
+       views.saved_jobs,
+       name="saved_jobs"
+    ),
+
+     path(
+       "unsave/<int:job_id>/",
+       views.unsave_job,
+       name="unsave_job",
+    ),
 ]

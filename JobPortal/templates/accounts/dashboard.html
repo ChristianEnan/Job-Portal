@@ -70,83 +70,67 @@ Dashboard
 
                 </thead>
 
-                <tbody>
+               <tbody>
 
-                    <td>
+{% for application in applications %}
 
+<tr>
 
-                        {% if application.status == "Pending" %}
+    <td>{{ application.job.title }}</td>
 
+    <td>{{ application.job.company.name }}</td>
 
-                        <span class="badge bg-warning">
+    <td>
 
-                            Pending
+        {% if application.status == "Pending" %}
 
-                        </span>
+            <span class="badge bg-warning">
+                Pending
+            </span>
 
+        {% elif application.status == "Reviewed" %}
 
-                        {% elif application.status == "Reviewed" %}
+            <span class="badge bg-info">
+                Reviewed
+            </span>
 
+        {% elif application.status == "Shortlisted" %}
 
-                        <span class="badge bg-info">
+            <span class="badge bg-primary">
+                Shortlisted
+            </span>
 
-                            Reviewed
+        {% elif application.status == "Rejected" %}
 
-                        </span>
+            <span class="badge bg-danger">
+                Rejected
+            </span>
 
+        {% elif application.status == "Selected" %}
 
-                        {% elif application.status == "Shortlisted" %}
+            <span class="badge bg-success">
+                Selected
+            </span>
 
+        {% endif %}
 
-                        <span class="badge bg-primary">
+    </td>
 
-                            Shortlisted
-
-                        </span>
-
-
-                        {% elif application.status == "Rejected" %}
-
-
-
-                        <span class="badge bg-danger">
-
-                            Rejected
-
-                        </span>
-
-
-                        {% elif application.status == "Selected" %}
-
-
-                        <span class="badge bg-success">
-
-                            Selected
-
-                        </span>
-
-
-
-                        {% endif %}
-
-
-                    </td>
-    
     <td>{{ application.applied_at|date:"d M Y" }}</td>
 
-
 </tr>
-                    {% empty %}
 
-                    <tr>
-                        <td colspan="3" class="text-center">
-                            You haven't applied for any jobs yet.
-                        </td>
-                    </tr>
+{% empty %}
 
-                    {% endfor %}
+<tr>
+    <td colspan="4" class="text-center">
+        You haven't applied for any jobs yet.
+    </td>
+</tr>
 
-                </tbody>
+{% endfor %}
+
+</tbody>
 
             </table>
 

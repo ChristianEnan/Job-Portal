@@ -2,6 +2,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from .models import CandidateProfile
 from .forms import CandidateProfileForm
 from jobs.models import Job, Company
@@ -139,4 +140,12 @@ def dashboard(request):
         request,
         "accounts/dashboard.html",
         context,
+    )
+
+@staff_member_required
+def admin_dashboard(request):
+
+    return render(
+        request,
+        "accounts/admin_dashboard.html"
     )

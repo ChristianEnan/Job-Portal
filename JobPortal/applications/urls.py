@@ -25,4 +25,16 @@ urlpatterns = [
        views.unsave_job,
        name="unsave_job",
     ),
+
+    path(
+        "schedule-interview/<int:application_id>/",
+        views.schedule_interview,
+        name="schedule_interview",
+    ),
+
+    path(
+        "applicants/",
+        views.applicants,
+        name="applicants",
+    ),
 ]

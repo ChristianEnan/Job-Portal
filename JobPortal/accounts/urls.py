@@ -8,5 +8,6 @@ urlpatterns = [
     path("profile/", views.profile, name="profile"),
     path("dashboard/", views.dashboard, name="dashboard"),
     path("admin-dashboard/",views.admin_dashboard,name="admin_dashboard",),
+    path("update-status/<int:pk>/",views.update_application_status,name="update_application_status",),
 
 ]

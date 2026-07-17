@@ -27,10 +27,18 @@ Admin Dashboard
         </div>
 
         <div class="col-md-3">
-            <div class="card shadow p-4 text-center">
-                <h3>Applicants</h3>
-            </div>
+    <a href="{% url 'interview_list' %}"
+       class="text-decoration-none text-dark">
+
+        <div class="card shadow p-4 text-center">
+
+            <h3>Applicants</h3>
+
         </div>
+
+    </a>
+    
+</div>
 
         <div class="col-md-3">
             <div class="card shadow p-4 text-center">
@@ -39,6 +47,116 @@ Admin Dashboard
         </div>
 
     </div>
+
+    <div class="card shadow mt-5">
+
+    <div class="card-header">
+        <h4>Recent Applicants</h4>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Candidate</th>
+                    <th>Job</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Applied On</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for application in applications %}
+
+                <tr>
+
+                    <td>{{ application.candidate.username }}</td>
+
+                    <td>{{ application.job.title }}</td>
+
+                    <td>{{ application.job.company.name }}</td>
+
+                   <td>
+
+    <form method="POST"
+          action="{% url 'update_application_status' application.id %}">
+
+        {% csrf_token %}
+
+        <select
+            name="status"
+            class="form-select form-select-sm">
+
+            <option value="Pending"
+            {% if application.status == "Pending" %}selected{% endif %}>
+                Pending
+            </option>
+
+            <option value="Reviewed"
+            {% if application.status == "Reviewed" %}selected{% endif %}>
+                Reviewed
+            </option>
+
+            <option value="Shortlisted"
+            {% if application.status == "Shortlisted" %}selected{% endif %}>
+                Shortlisted
+            </option>
+
+            <option value="Rejected"
+            {% if application.status == "Rejected" %}selected{% endif %}>
+                Rejected
+            </option>
+
+            <option value="Selected"
+            {% if application.status == "Selected" %}selected{% endif %}>
+                Selected
+            </option>
+
+        </select>
+
+        <button
+            class="btn btn-success btn-sm mt-2"
+            type="submit">
+
+            Update
+
+        </button>
+
+    </form>
+
+</td>
+
+                    <td>{{ application.applied_at|date:"d M Y" }}</td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+                        No applications found.
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 </div>
 

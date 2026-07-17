@@ -59,3 +59,33 @@ class SavedJob(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.job.title}"
+
+class Interview(models.Model):
+
+    application = models.OneToOneField(
+        Application,
+        on_delete=models.CASCADE
+    )
+
+    interview_date = models.DateField()
+
+    interview_time = models.TimeField()
+
+    meeting_link = models.URLField(
+        blank=True,
+        null=True
+    )
+
+    location = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    notes = models.TextField(blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.application.candidate.username} - {self.application.job.title}"
+
+    

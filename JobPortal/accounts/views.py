@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404, redirect
 from .models import CandidateProfile
 from .forms import CandidateProfileForm
 from jobs.models import Job, Company
@@ -145,7 +146,42 @@ def dashboard(request):
 @staff_member_required
 def admin_dashboard(request):
 
+    applications = Application.objects.select_related(
+        "candidate",
+        "job",
+        "job__company"
+    ).order_by("-applied_at")
+
+    context = {
+        "applications": applications
+    }
+
     return render(
         request,
-        "accounts/admin_dashboard.html"
+        "accounts/admin_dashboard.html",
+        context
     )
+
+@staff_member_required
+def update_application_status(request, pk):
+
+    application = get_object_or_404(
+        Application,
+        pk=pk
+    )
+
+    if request.method == "POST":
+
+        status = request.POST.get("status")
+
+        if status in [
+            "Pending",
+            "Reviewed",
+            "Shortlisted",
+            "Rejected",
+            "Selected"
+        ]:
+            application.status = status
+            application.save()
+
+    return redirect("admin_dashboard")

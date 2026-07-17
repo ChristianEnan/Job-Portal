@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}
+Schedule Interview
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3>Schedule Interview</h3>
+        </div>
+
+        <div class="card-body">
+
+            <h5 class="mb-4">
+                {{ application.candidate.username }} -
+                {{ application.job.title }}
+            </h5>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label">Interview Date</label>
+
+                    <input
+                        type="date"
+                        name="interview_date"
+                        class="form-control"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Interview Time</label>
+
+                    <input
+                        type="time"
+                        name="interview_time"
+                        class="form-control"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Google Meet / Zoom Link</label>
+
+                    <input
+                        type="url"
+                        name="meeting_link"
+                        class="form-control"
+                        placeholder="https://meet.google.com/..."
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Interview Location</label>
+
+                    <input
+                        type="text"
+                        name="location"
+                        class="form-control"
+                        placeholder="Office Address (Optional)"
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Notes</label>
+
+                    <textarea
+                        name="notes"
+                        rows="4"
+                        class="form-control"
+                        placeholder="Additional Instructions..."
+                    ></textarea>
+                </div>
+
+                <button class="btn btn-success">
+                    Schedule Interview
+                </button>
+
+                <a href="{% url 'admin_dashboard' %}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

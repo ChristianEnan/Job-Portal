@@ -26,6 +26,35 @@ Save Profile
 
 </form>
 
+{% if profile.profile_image %}
+
+<hr>
+
+<h5>Profile Photo</h5>
+
+<img src="{{ profile.profile_image.url }}"
+     width="150"
+     class="img-thumbnail mb-3">
+
+{% endif %}
+
+
+{% if profile.resume %}
+
+<hr>
+
+<h5>Resume</h5>
+
+<a href="{{ profile.resume.url }}"
+   target="_blank"
+   class="btn btn-success">
+
+    Download Resume
+
+</a>
+
+{% endif %}
+
 </div>
 
 </div>

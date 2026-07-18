@@ -3,10 +3,12 @@ from django.contrib.auth import get_user_model
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404 ,  redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 from applications.models import Application
 from .models import Job
 from .models import Job, Company
+from .forms import CompanyForm
 
 User = get_user_model()
 
@@ -102,4 +104,45 @@ def company_detail(request, id):
         request,
         "jobs/company_detail.html",
         context,
+    )
+
+@staff_member_required
+def company_list(request):
+
+    companies = Company.objects.all().order_by("name")
+
+    return render(
+        request,
+        "jobs/company_list.html",
+        {
+            "companies": companies
+        }
+    )
+
+@staff_member_required
+def add_company(request):
+
+    if request.method == "POST":
+
+        form = CompanyForm(
+            request.POST,
+            request.FILES
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect("company_list")
+
+    else:
+
+        form = CompanyForm()
+
+    return render(
+        request,
+        "jobs/add_company.html",
+        {
+            "form": form
+        }
     )

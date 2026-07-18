@@ -27,7 +27,7 @@ Admin Dashboard
         </div>
 
         <div class="col-md-3">
-    <a href="{% url 'interview_list' %}"
+    <a href="{% url 'applicants' %}"
        class="text-decoration-none text-dark">
 
         <div class="card shadow p-4 text-center">
@@ -65,6 +65,7 @@ Admin Dashboard
                     <th>Candidate</th>
                     <th>Job</th>
                     <th>Company</th>
+                    <th>Resume</th>
                     <th>Status</th>
                     <th>Applied On</th>
 
@@ -83,6 +84,30 @@ Admin Dashboard
                     <td>{{ application.job.title }}</td>
 
                     <td>{{ application.job.company.name }}</td>
+
+                    <td>
+
+    {% if application.candidate.candidateprofile.resume %}
+
+    <a href="{{ application.candidate.candidateprofile.resume.url }}"
+       target="_blank"
+       class="btn btn-primary btn-sm">
+
+        Download Resume
+
+    </a>
+
+    {% else %}
+
+    <span class="text-danger">
+
+        No Resume
+
+    </span>
+
+    {% endif %}
+
+</td>
 
                    <td>
 

@@ -8,8 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from applications.models import Application
 from .models import Job
 from .models import Job, Company
-from .forms import CompanyForm
-
+from .forms import CompanyForm, JobForm
 User = get_user_model()
 
 
@@ -142,6 +141,90 @@ def add_company(request):
     return render(
         request,
         "jobs/add_company.html",
+        {
+            "form": form
+        }
+    )
+
+@staff_member_required
+def edit_company(request, pk):
+
+    company = get_object_or_404(
+        Company,
+        pk=pk
+    )
+
+    if request.method == "POST":
+
+        form = CompanyForm(
+            request.POST,
+            request.FILES,
+            instance=company
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect("company_list")
+
+    else:
+
+        form = CompanyForm(instance=company)
+
+    return render(
+        request,
+        "jobs/edit_company.html",
+        {
+            "form": form,
+            "company": company
+        }
+    )
+
+@staff_member_required
+def delete_company(request, pk):
+
+    company = get_object_or_404(
+        Company,
+        pk=pk
+    )
+
+    if request.method == "POST":
+
+        company.delete()
+
+        return redirect("company_list")
+
+    return render(
+        request,
+        "jobs/delete_company.html",
+        {
+            "company": company
+        }
+    )
+
+@staff_member_required
+def add_job(request):
+
+    if request.method == "POST":
+
+        form = JobForm(
+            request.POST
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect("home")
+
+    else:
+
+        form = JobForm()
+
+    return render(
+        request,
+        "jobs/add_job.html",
         {
             "form": form
         }

@@ -11,4 +11,7 @@ urlpatterns = [
     path("companies/edit/<int:pk>/",views.edit_company,name="edit_company",),
     path("companies/delete/<int:pk>/",views.delete_company,name="delete_company",),
     path("jobs/add/",views.add_job,name="add_job",),
+    path("jobs/manage/",views.manage_jobs,name="manage_jobs",),
+    path("jobs/edit/<int:pk>/",views.edit_job,name="edit_job",),
+    path("jobs/delete/<int:pk>/",views.delete_job,name="delete_job",),
 ]

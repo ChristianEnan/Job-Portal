@@ -9,6 +9,7 @@ from .forms import CandidateProfileForm
 from jobs.models import Job, Company
 from applications.models import Application
 from applications.models import SavedJob
+from applications.models import Interview
 
 def register(request):
 
@@ -129,12 +130,20 @@ def dashboard(request):
 
     saved_jobs = SavedJob.objects.filter(user=request.user).count()
 
+    interviews = Interview.objects.filter(
+    application__candidate=request.user
+    ).select_related(
+        "application",
+        "application__job"
+    ).order_by("interview_date", "interview_time")
+
     context = {
     "applied_jobs": applied_jobs,
     "total_jobs": total_jobs,
     "total_companies": total_companies,
     "saved_jobs": saved_jobs,
     "applications": applications,
+    "interviews": interviews,
 }
 
     return render(
@@ -152,8 +161,10 @@ def admin_dashboard(request):
         "job__company"
     ).order_by("-applied_at")
 
+
     context = {
-        "applications": applications
+        "applications": applications,
+    
     }
 
     return render(

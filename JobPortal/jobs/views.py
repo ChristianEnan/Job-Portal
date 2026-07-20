@@ -229,3 +229,67 @@ def add_job(request):
             "form": form
         }
     )
+
+@staff_member_required
+def manage_jobs(request):
+
+    jobs = Job.objects.select_related(
+        "company"
+    ).order_by("-id")
+
+    return render(
+        request,
+        "jobs/manage_jobs.html",
+        {
+            "jobs": jobs
+        }
+    )
+
+from django.shortcuts import get_object_or_404
+
+@staff_member_required
+def edit_job(request, pk):
+
+    job = get_object_or_404(Job, pk=pk)
+
+    if request.method == "POST":
+
+        form = JobForm(request.POST, instance=job)
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect("manage_jobs")
+
+    else:
+
+        form = JobForm(instance=job)
+
+    return render(
+        request,
+        "jobs/edit_job.html",
+        {
+            "form": form,
+            "job": job
+        }
+    )
+
+@staff_member_required
+def delete_job(request, pk):
+
+    job = get_object_or_404(Job, pk=pk)
+
+    if request.method == "POST":
+
+        job.delete()
+
+        return redirect("manage_jobs")
+
+    return render(
+        request,
+        "jobs/delete_job.html",
+        {
+            "job": job
+        }
+    )

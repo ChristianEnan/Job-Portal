@@ -4,6 +4,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404 ,  redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
 
 from applications.models import Application
 from .models import Job
@@ -29,15 +30,33 @@ def home(request):
     if job_type:
         jobs = jobs.filter(employment_type=job_type)
 
+    # Statistics
+    total_jobs = Job.objects.filter(
+        is_active=True
+    ).count()
+
+    total_companies = Company.objects.count()
+
+    total_candidates = User.objects.filter(
+        is_staff=False
+    ).count()
+
     context = {
         "jobs": jobs,
         "search": search,
         "location": location,
         "job_type": job_type,
         "employment_types": Job.EmploymentType.choices,
+        "total_jobs": total_jobs,
+        "total_companies": total_companies,
+        "total_candidates": total_candidates,
     }
 
-    return render(request, "jobs/home.html", context)
+    return render(
+        request,
+        "jobs/home.html",
+        context
+    )
 
 def job_detail(request, id):
     job = get_object_or_404(Job, id=id)

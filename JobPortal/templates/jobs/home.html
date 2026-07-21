@@ -37,6 +37,56 @@ Browse Jobs
 
 </section>
 
+<div class="container mt-5">
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center p-4">
+
+                <h2 class="text-primary">
+                    {{ total_jobs }}
+                </h2>
+
+                <h5>Active Jobs</h5>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center p-4">
+
+                <h2 class="text-success">
+                    {{ total_companies }}
+                </h2>
+
+                <h5>Companies</h5>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center p-4">
+
+                <h2 class="text-danger">
+                    {{ total_candidates }}
+                </h2>
+
+                <h5>Candidates</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>          
+
 <div class="container mt-4">
 
 <form method="GET">
@@ -127,11 +177,24 @@ Latest Jobs
 
     <div class="card-body">
 
-        <h4 class="card-title">
+        <h4 class="card-title fw-bold">
             {{ job.title }}
-        </h4>
+         </h4>
 
-       <h6 class="text-primary">
+         <span class="badge bg-primary mb-2">
+            {{ job.get_employment_type_display }}
+         </span>
+
+         <h6 class="text-primary">
+
+            {% if job.company.logo %}
+
+<img src="{{ job.company.logo.url }}"
+     width="60"
+     height="60"
+     class="mb-3 rounded-circle">
+
+{% endif %}
 
     <a href="{% url 'company_detail' job.company.id %}"
        class="text-decoration-none">
@@ -148,9 +211,9 @@ Latest Jobs
         </p>
 
         <p>
-            <span class="badge bg-success">
-                {{ job.salary }}
-            </span>
+             <span class="badge bg-success fs-6">
+                ₹ {{ job.salary }}
+             </span>
 
             <span class="badge bg-secondary">
                 {{ job.get_employment_type_display }}
@@ -180,9 +243,15 @@ Latest Jobs
 
 {% empty %}
 
-<div class="alert alert-info">
+<div class="col-12">
 
-No Jobs Available
+    <div class="alert alert-info text-center">
+
+        <h4>No Jobs Available</h4>
+
+        <p>Please check again later.</p>
+
+    </div>
 
 </div>
 

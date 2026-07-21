@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+<div class="container">
+
+<div class="row">
+
+<div class="col-lg-7">
+
+<h1>Find Your Dream Job</h1>
+
+<p>
+
+Search thousands of jobs from top companies.
+
+</p>
+
+<a href="#jobs"
+class="btn btn-light btn-lg mt-3">
+
+Browse Jobs
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="container mt-5">
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center p-4">
+
+                <h2 class="text-primary">
+                    {{ total_jobs }}
+                </h2>
+
+                <h5>Active Jobs</h5>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center p-4">
+
+                <h2 class="text-success">
+                    {{ total_companies }}
+                </h2>
+
+                <h5>Companies</h5>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow text-center p-4">
+
+                <h2 class="text-danger">
+                    {{ total_candidates }}
+                </h2>
+
+                <h5>Candidates</h5>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>          
+
+<div class="container mt-4">
+
+<form method="GET">
+
+<div class="row">
+
+<div class="col-md-4">
+
+<input
+type="text"
+name="search"
+class="form-control"
+placeholder="Search Job..."
+value="{{ search }}">
+
+</div>
+
+<div class="col-md-3">
+
+<input
+type="text"
+name="location"
+class="form-control"
+placeholder="Location"
+value="{{ location }}">
+
+</div>
+
+<div class="col-md-3">
+
+<select
+name="type"
+class="form-control">
+
+<option value="">All Types</option>
+
+{% for value,label in employment_types %}
+
+<option
+value="{{ value }}"
+{% if job_type == value %}
+selected
+{% endif %}>
+
+{{ label }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-2">
+
+<button
+class="btn btn-primary w-100">
+
+Search
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+<div class="container mt-5"
+id="jobs">
+
+<h2 class="mb-4">
+
+Latest Jobs
+
+</h2>
+
+<div class="row">
+
+{% for job in jobs %}
+
+<div class="col-md-4 mb-4">
+
+<div class="card shadow-sm h-100">
+
+    <div class="card-body">
+
+        <h4 class="card-title fw-bold">
+            {{ job.title }}
+         </h4>
+
+         <span class="badge bg-primary mb-2">
+            {{ job.get_employment_type_display }}
+         </span>
+
+         <h6 class="text-primary">
+
+            {% if job.company.logo %}
+
+<img src="{{ job.company.logo.url }}"
+     width="60"
+     height="60"
+     class="mb-3 rounded-circle">
+
+{% endif %}
+
+    <a href="{% url 'company_detail' job.company.id %}"
+       class="text-decoration-none">
+
+        {{ job.company.name }}
+
+    </a>
+
+</h6>
+
+        <p>
+            <i class="bi bi-geo-alt-fill"></i>
+            {{ job.location }}
+        </p>
+
+        <p>
+             <span class="badge bg-success fs-6">
+                ₹ {{ job.salary }}
+             </span>
+
+            <span class="badge bg-secondary">
+                {{ job.get_employment_type_display }}
+            </span>
+        </p>
+
+        <p class="card-text">
+            {{ job.description|truncatechars:120 }}
+        </p>
+
+    </div>
+
+    <div class="card-footer bg-white">
+
+        <a href="{% url 'job_detail' job.id %}"
+           class="btn btn-primary w-100">
+
+            View Details
+
+        </a>
+
+    </div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<div class="col-12">
+
+    <div class="alert alert-info text-center">
+
+        <h4>No Jobs Available</h4>
+
+        <p>Please check again later.</p>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

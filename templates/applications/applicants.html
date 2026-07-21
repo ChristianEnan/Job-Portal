@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+Applicants
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Applicants
+    </h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead>
+
+            <tr>
+
+                <th>Candidate</th>
+                <th>Job</th>
+                <th>Status</th>
+                <th>Applied On</th>
+                <th>Interview</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for application in applications %}
+
+            <tr>
+
+                <td>{{ application.candidate.username }}</td>
+
+                <td>{{ application.job.title }}</td>
+
+                <td>
+
+                    <span class="badge bg-primary">
+
+                        {{ application.status }}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    {{ application.applied_at|date:"d M Y" }}
+
+                </td>
+
+                <td>
+
+                    <a href="{% url 'schedule_interview' application.id %}"
+                       class="btn btn-success btn-sm">
+
+                        Schedule Interview
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="5" class="text-center">
+
+                    No Applications
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

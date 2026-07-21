@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+        Recruiter Dashboard
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+    <a href="{% url 'add_job' %}"
+       class="text-decoration-none text-dark">
+
+        <div class="card shadow p-4 text-center">
+
+            <h3>➕ Add Job</h3>
+
+        </div>
+
+    </a>
+
+</div>
+        <div class="col-md-3">
+
+    <a href="{% url 'manage_jobs' %}"
+       class="text-decoration-none text-dark">
+
+        <div class="card shadow p-4 text-center">
+
+            <h3>Manage Jobs</h3>
+
+        </div>
+
+    </a>
+
+</div>
+
+        <div class="col-md-3">
+    <a href="{% url 'applicants' %}"
+       class="text-decoration-none text-dark">
+
+        <div class="card shadow p-4 text-center">
+
+            <h3>Applicants</h3>
+
+        </div>
+
+    </a>
+    
+</div>
+
+        <div class="col-md-3">
+            <div class="card shadow p-4 text-center">
+                <h3>Companies</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow mt-5">
+
+    <div class="card-header">
+        <h4>Recent Applicants</h4>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Candidate</th>
+                    <th>Job</th>
+                    <th>Company</th>
+                    <th>Resume</th>
+                    <th>Status</th>
+                    <th>Applied On</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for application in applications %}
+
+                <tr>
+
+                    <td>{{ application.candidate.username }}</td>
+
+                    <td>{{ application.job.title }}</td>
+
+                    <td>{{ application.job.company.name }}</td>
+
+                    <td>
+
+    {% if application.candidate.candidateprofile.resume %}
+
+    <a href="{{ application.candidate.candidateprofile.resume.url }}"
+       target="_blank"
+       class="btn btn-primary btn-sm">
+
+        Download Resume
+
+    </a>
+
+    {% else %}
+
+    <span class="text-danger">
+
+        No Resume
+
+    </span>
+
+    {% endif %}
+
+</td>
+
+                   <td>
+
+    <form method="POST"
+          action="{% url 'update_application_status' application.id %}">
+
+        {% csrf_token %}
+
+        <select
+            name="status"
+            class="form-select form-select-sm">
+
+            <option value="Pending"
+            {% if application.status == "Pending" %}selected{% endif %}>
+                Pending
+            </option>
+
+            <option value="Reviewed"
+            {% if application.status == "Reviewed" %}selected{% endif %}>
+                Reviewed
+            </option>
+
+            <option value="Shortlisted"
+            {% if application.status == "Shortlisted" %}selected{% endif %}>
+                Shortlisted
+            </option>
+
+            <option value="Rejected"
+            {% if application.status == "Rejected" %}selected{% endif %}>
+                Rejected
+            </option>
+
+            <option value="Selected"
+            {% if application.status == "Selected" %}selected{% endif %}>
+                Selected
+            </option>
+
+        </select>
+
+        <button
+            class="btn btn-success btn-sm mt-2"
+            type="submit">
+
+            Update
+
+        </button>
+
+    </form>
+
+</td>
+
+                    <td>{{ application.applied_at|date:"d M Y" }}</td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td colspan="5" class="text-center">
+                        No applications found.
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

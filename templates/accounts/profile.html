@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5" style="max-width:800px;">
+
+<div class="card shadow p-4">
+
+<h2 class="mb-4">My Profile</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button class="btn btn-primary">
+
+Save Profile
+
+</button>
+
+</form>
+
+{% if profile.profile_image %}
+
+<hr>
+
+<h5>Profile Photo</h5>
+
+<img src="{{ profile.profile_image.url }}"
+     width="150"
+     class="img-thumbnail mb-3">
+
+{% endif %}
+
+
+{% if profile.resume %}
+
+<hr>
+
+<h5>Resume</h5>
+
+<a href="{{ profile.resume.url }}"
+   target="_blank"
+   class="btn btn-success">
+
+    Download Resume
+
+</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+{% endblock %}

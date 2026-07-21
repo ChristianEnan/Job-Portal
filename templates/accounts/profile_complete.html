@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Profile | Job Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+    :root{
+        --bg:#f6f8fc;
+        --surface:#ffffff;
+        --primary:#0f4cd9;
+        --primary-dark:#0a3598;
+        --ink:#1c2537;
+        --muted:#63708a;
+        --line:#dce3f0;
+        --shadow:0 18px 30px rgba(20, 34, 67, 0.08);
+        --success:#059669;
+    }
+
+    body{
+        margin:0;
+        font-family:'Manrope',sans-serif;
+        color:var(--ink);
+        background:
+            radial-gradient(circle at 10% -10%, #dbeafe 0, transparent 32%),
+            radial-gradient(circle at 90% 20%, #ccfbf1 0, transparent 30%),
+            var(--bg);
+    }
+
+    .hero{
+        background:linear-gradient(135deg, #0f4cd9 0%, #0d66f0 40%, #13a3f2 100%);
+        color:#fff;
+        padding:56px 20px 66px;
+        position:relative;
+        overflow:hidden;
+    }
+
+    .hero::after{
+        content:"";
+        position:absolute;
+        width:420px;
+        height:420px;
+        border-radius:50%;
+        right:-120px;
+        top:-180px;
+        background:rgba(255,255,255,0.15);
+    }
+
+    .hero-inner{
+        max-width:1180px;
+        margin:0 auto;
+        position:relative;
+        z-index:2;
+    }
+
+    .hero h1{
+        margin:0 0 12px;
+        font-family:'Space Grotesk',sans-serif;
+        font-size:clamp(2rem, 4vw, 3rem);
+    }
+
+    .hero p{
+        margin:0;
+        max-width:760px;
+        opacity:0.95;
+        font-size:1.02rem;
+        line-height:1.65;
+    }
+
+    .wrap{
+        max-width:1180px;
+        margin:-34px auto 64px;
+        padding:0 20px;
+        display:grid;
+        grid-template-columns:1.65fr 1fr;
+        gap:18px;
+        position:relative;
+        z-index:5;
+    }
+
+    .card{
+        background:var(--surface);
+        border:1px solid var(--line);
+        border-radius:18px;
+        box-shadow:var(--shadow);
+        padding:22px;
+    }
+
+    .card h2,
+    .card h3{
+        margin:0 0 14px;
+        font-family:'Space Grotesk',sans-serif;
+    }
+
+    .msg{
+        border-radius:10px;
+        padding:11px 12px;
+        margin-bottom:10px;
+        background:#ecfdf3;
+        color:var(--success);
+        border:1px solid #a7f3d0;
+        font-size:0.92rem;
+    }
+
+    .msg-error{
+        background:#fef2f2;
+        color:#b91c1c;
+        border:1px solid #fecaca;
+    }
+
+    .grid{
+        display:grid;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:12px;
+    }
+
+    .field{
+        display:flex;
+        flex-direction:column;
+        gap:6px;
+        margin-bottom:12px;
+    }
+
+    .field.full{
+        grid-column:1 / -1;
+    }
+
+    label{
+        font-weight:700;
+        font-size:0.9rem;
+    }
+
+    input,
+    textarea{
+        width:100%;
+        box-sizing:border-box;
+        border:1px solid var(--line);
+        border-radius:12px;
+        padding:11px 12px;
+        font-family:inherit;
+        font-size:0.95rem;
+        background:#fff;
+    }
+
+    input:focus,
+    textarea:focus{
+        outline:none;
+        border-color:#86a4ff;
+        box-shadow:0 0 0 3px rgba(66, 115, 249, 0.18);
+    }
+
+    textarea{
+        min-height:116px;
+        resize:vertical;
+    }
+
+    .help{
+        color:var(--muted);
+        font-size:0.82rem;
+    }
+
+    .errorlist{
+        margin:0;
+        padding-left:18px;
+        color:#b91c1c;
+        font-size:0.86rem;
+    }
+
+    .btn{
+        border:none;
+        background:var(--primary);
+        color:#fff;
+        font-weight:800;
+        padding:13px 18px;
+        border-radius:12px;
+        cursor:pointer;
+    }
+
+    .btn:hover{
+        background:var(--primary-dark);
+    }
+
+    .stack{
+        display:grid;
+        gap:12px;
+    }
+
+    .profile-mini{
+        display:flex;
+        gap:12px;
+        align-items:flex-start;
+        border:1px solid var(--line);
+        border-radius:14px;
+        padding:14px;
+        margin-bottom:10px;
+    }
+
+    .avatar{
+        width:54px;
+        height:54px;
+        border-radius:16px;
+        background:#e0ebff;
+        color:#113e9f;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight:800;
+        font-family:'Space Grotesk',sans-serif;
+        flex:0 0 auto;
+    }
+
+    .profile-mini h4{
+        margin:0 0 4px;
+        font-size:1rem;
+    }
+
+    .profile-mini p{
+        margin:0;
+        color:var(--muted);
+        font-size:0.9rem;
+        line-height:1.5;
+    }
+
+    .side-note{
+        border:1px dashed #9fb3de;
+        border-radius:16px;
+        padding:14px;
+        background:#fbfdff;
+        color:var(--muted);
+        line-height:1.6;
+        font-size:0.92rem;
+    }
+
+    @media (max-width:980px){
+        .wrap{
+            grid-template-columns:1fr;
+        }
+    }
+
+    @media (max-width:680px){
+        .hero{
+            padding:44px 16px 56px;
+        }
+        .wrap{
+            padding:0 14px;
+        }
+        .grid{
+            grid-template-columns:1fr;
+        }
+    }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>Complete Your Profile</h1>
+            <p>Add every important detail recruiters care about: profile photo, education, skills, languages, projects, accomplishments, employment history, competitive exams, academic achievements, resume and more.</p>
+        </div>
+    </section>
+
+    <main class="wrap">
+        <section class="card">
+            <h2>Profile Completion Form</h2>
+            {% if messages %}
+                {% for message in messages %}
+                <div class="msg">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if form.errors %}
+            <div class="msg msg-error">
+                Please fix the highlighted fields and try again.
+            </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid">
+                    <div class="field">
+                        <label for="id_username">Username</label>
+                        {{ form.username }}
+                        {{ form.username.errors }}
+                        <span class="help">Use the same username when applying to jobs.</span>
+                    </div>
+                    <div class="field">
+                        <label for="id_email">Email</label>
+                        {{ form.email }}
+                        {{ form.email.errors }}
+                    </div>
+                    <div class="field">
+                        <label for="id_profile_photo">Profile Photo</label>
+                        {{ form.profile_photo }}
+                        {{ form.profile_photo.errors }}
+                    </div>
+                    <div class="field">
+                        <label for="id_resume">Resume</label>
+                        {{ form.resume }}
+                        {{ form.resume.errors }}
+                    </div>
+                    <div class="field">
+                        <label for="id_phone">Phone</label>
+                        {{ form.phone }}
+                        {{ form.phone.errors }}
+                    </div>
+                    <div class="field">
+                        <label for="id_location">Location</label>
+                        {{ form.location }}
+                        {{ form.location.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_education">Education</label>
+                        {{ form.education }}
+                        {{ form.education.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_key_skills">Key Skills</label>
+                        {{ form.key_skills }}
+                        {{ form.key_skills.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_languages">Languages</label>
+                        {{ form.languages }}
+                        {{ form.languages.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_internships">Internships</label>
+                        {{ form.internships }}
+                        {{ form.internships.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_projects">Projects</label>
+                        {{ form.projects }}
+                        {{ form.projects.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_profile_summary">Profile Summary</label>
+                        {{ form.profile_summary }}
+                        {{ form.profile_summary.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_accomplishments">Accomplishments</label>
+                        {{ form.accomplishments }}
+                        {{ form.accomplishments.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_competitive_exams">Competitive Exams</label>
+                        {{ form.competitive_exams }}
+                        {{ form.competitive_exams.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_employment">Employment</label>
+                        {{ form.employment }}
+                        {{ form.employment.errors }}
+                    </div>
+                    <div class="field full">
+                        <label for="id_academic_achievements">Academic Achievements</label>
+                        {{ form.academic_achievements }}
+                        {{ form.academic_achievements.errors }}
+                    </div>
+                    <div class="field">
+                        <label for="id_experience_years">Experience Years</label>
+                        {{ form.experience_years }}
+                        {{ form.experience_years.errors }}
+                    </div>
+                </div>
+                <button class="btn" type="submit">Save Profile</button>
+            </form>
+        </section>
+
+        <aside class="stack">
+            <section class="card">
+                <h3>Why complete this profile?</h3>
+                <div class="side-note">
+                    A complete profile increases your visibility for recruiters, makes job applications faster, and keeps your portfolio structured in one place.
+                </div>
+            </section>
+
+            <section class="card">
+                <h3>Recently Saved Profiles</h3>
+                {% if profiles %}
+                    {% for profile in profiles %}
+                    <div class="profile-mini">
+                        <div class="avatar">{{ profile.user.username|first|upper }}</div>
+                        <div>
+                            <h4>{{ profile.user.username }}</h4>
+                            <p>{{ profile.location|default:"Location not added yet" }}<br>{{ profile.key_skills|truncatechars:90|default:"No skills added yet" }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="side-note">No profiles have been completed yet. Be the first to finish yours.</div>
+                {% endif %}
+            </section>
+        </aside>
+    </main>
+</body>
+</html>

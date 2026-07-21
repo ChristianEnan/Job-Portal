@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Applications
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">
+
+        My Applications
+
+    </h2>
+
+    {% if applications %}
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>Job</th>
+
+                <th>Company</th>
+
+                <th>Location</th>
+
+                <th>Applied On</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for app in applications %}
+
+            <tr>
+
+                <td>{{ app.job.title }}</td>
+
+                <td>{{ app.job.company }}</td>
+
+                <td>{{ app.job.location }}</td>
+
+                <td>{{ app.applied_at }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="alert alert-info">
+
+        You have not applied for any jobs yet.
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

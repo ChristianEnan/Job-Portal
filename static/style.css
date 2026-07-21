@@ -1,0 +1,194 @@
+body{
+
+background:#f6f8fc;
+
+font-family:Arial,Helvetica,sans-serif;
+
+}
+
+.hero{
+
+background:linear-gradient(135deg,#0d6efd,#4da3ff);
+
+color:white;
+
+padding:100px 0;
+
+}
+
+.hero h1{
+
+font-size:55px;
+
+font-weight:bold;
+
+}
+
+.hero p{
+
+font-size:20px;
+
+margin-top:20px;
+
+}
+
+.search-box{
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+margin-top:-45px;
+
+}
+
+.job-card{
+
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+transition:.3s;
+
+height:100%;
+
+}
+
+.job-card:hover{
+
+transform:translateY(-8px);
+
+}
+
+footer{
+
+margin-top:80px;
+
+}body{
+    background:#f5f7fb;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Hero Section */
+
+.hero{
+    background:linear-gradient(135deg,#0d6efd,#4f9dff);
+    color:white;
+    padding:80px 0;
+}
+
+.hero h1{
+    font-size:52px;
+    font-weight:bold;
+}
+
+.hero p{
+    font-size:20px;
+}
+
+/* Search Box */
+
+form{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+/* Job Cards */
+
+.card{
+    border:none;
+    border-radius:15px;
+    transition:.3s;
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.card-title{
+
+    font-weight:bold;
+
+    color:#0d6efd;
+
+}
+
+.card-text{
+
+    color:#666;
+
+}
+
+.card-footer{
+
+    border:none;
+
+}
+
+.badge{
+
+    font-size:14px;
+
+    margin-right:5px;
+
+}
+
+.btn-primary{
+
+    border-radius:10px;
+
+}
+
+.btn-success{
+
+    border-radius:10px;
+
+}
+
+.card{
+
+border-radius:15px;
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 12px 25px rgba(0,0,0,.15);
+
+}
+
+.card h2{
+
+font-size:38px;
+
+font-weight:bold;
+
+color:#0d6efd;
+
+}
+
+.card p{
+
+font-size:18px;
+
+margin-top:10px;
+
+}

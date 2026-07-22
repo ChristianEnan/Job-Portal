@@ -44,9 +44,9 @@ TEMPLATES = [
 SECRET_KEY = 'django-insecure-h2bomavwb0*m3e_*@l5$rlxvqg*=f^xwk$q!^zj*!g8()!5j)n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -131,6 +131,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -151,6 +153,8 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "enanchristiann26@gmail.com"
 
-EMAIL_HOST_PASSWORD = "gehg dmwl xhet zhor"
+import os
+
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

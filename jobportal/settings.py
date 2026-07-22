@@ -131,6 +131,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
@@ -151,6 +153,8 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "enanchristiann26@gmail.com"
 
-EMAIL_HOST_PASSWORD = "gehg dmwl xhet zhor"
+import os
+
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

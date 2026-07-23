@@ -54,8 +54,7 @@ def user_login(request):
 
             login(request, user)
 
-            return redirect("home")
-
+            return redirect("/admin/")
         else:
 
             error = "Invalid Username or Password"

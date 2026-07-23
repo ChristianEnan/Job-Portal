@@ -44,7 +44,7 @@ TEMPLATES = [
 SECRET_KEY = 'django-insecure-h2bomavwb0*m3e_*@l5$rlxvqg*=f^xwk$q!^zj*!g8()!5j)n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -125,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",

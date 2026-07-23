@@ -124,7 +124,6 @@ def company_detail(request, id):
         context,
     )
 
-@staff_member_required
 def company_list(request):
 
     companies = Company.objects.all().order_by("name")

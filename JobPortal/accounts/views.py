@@ -54,7 +54,10 @@ def user_login(request):
 
             login(request, user)
 
-            return redirect("/admin/")
+            if user.is_staff:
+                return redirect("admin_dashboard")
+            else:
+                return redirect("dashboard")
         else:
 
             error = "Invalid Username or Password"

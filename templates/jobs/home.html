@@ -10,24 +10,43 @@ Home
 
 <div class="container">
 
-<div class="row">
+<div class="row align-items-center">
 
-<div class="col-lg-7">
+<div class="col-lg-6">
 
-<h1>Find Your Dream Job</h1>
+<span class="badge bg-light text-primary px-3 py-2 mb-3">
+🚀 Trusted by 500+ Companies
+</span>
 
-<p>
+<h1 class="display-3 fw-bold">
+Find Your <span class="text-warning">Dream Job</span> Today
+</h1>
 
-Search thousands of jobs from top companies.
-
+<p class="lead mt-4">
+Discover thousands of jobs from top companies,
+build your career and apply with one click.
 </p>
 
-<a href="#jobs"
-class="btn btn-light btn-lg mt-3">
+<div class="mt-4">
 
-Browse Jobs
-
+<a href="#jobs" class="btn btn-light btn-lg me-3">
+<i class="bi bi-search"></i> Browse Jobs
 </a>
+
+<a href="{% url 'register' %}" class="btn btn-outline-light btn-lg">
+Create Account
+</a>
+
+</div>
+
+</div>
+
+<div class="col-lg-6 text-center">
+
+<img
+src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900"
+class="img-fluid rounded-4 shadow-lg"
+alt="Job Search">
 
 </div>
 
@@ -87,39 +106,41 @@ Browse Jobs
 
 </div>          
 
-<div class="container mt-4">
+<div class="container">
+
+<div class="card shadow-lg border-0 p-4 search-card">
 
 <form method="GET">
 
-<div class="row">
+<div class="row g-3 align-items-center">
 
-<div class="col-md-4">
+<div class="col-lg-4">
 
 <input
 type="text"
 name="search"
-class="form-control"
-placeholder="Search Job..."
+class="form-control form-control-lg"
+placeholder="🔍 Search Job..."
 value="{{ search }}">
 
 </div>
 
-<div class="col-md-3">
+<div class="col-lg-3">
 
 <input
 type="text"
 name="location"
-class="form-control"
-placeholder="Location"
+class="form-control form-control-lg"
+placeholder="📍 Location"
 value="{{ location }}">
 
 </div>
 
-<div class="col-md-3">
+<div class="col-lg-3">
 
 <select
 name="type"
-class="form-control">
+class="form-select form-select-lg">
 
 <option value="">All Types</option>
 
@@ -141,11 +162,11 @@ selected
 
 </div>
 
-<div class="col-md-2">
+<div class="col-lg-2 d-grid">
 
-<button
-class="btn btn-primary w-100">
+<button class="btn btn-primary btn-lg">
 
+<i class="bi bi-search"></i>
 Search
 
 </button>
@@ -155,6 +176,8 @@ Search
 </div>
 
 </form>
+
+</div>
 
 </div>
 

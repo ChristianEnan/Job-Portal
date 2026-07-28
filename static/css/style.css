@@ -299,3 +299,73 @@ border-color:#2563eb;
     color:#6c757d;
     font-size:18px;
 }
+
+.interview-card{
+
+    transition:.3s;
+
+}
+
+.interview-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15)!important;
+
+}
+
+.interview-card h4{
+
+    color:#2563eb;
+
+}
+
+.interview-card p{
+
+    margin-bottom:12px;
+
+}
+
+.quick-card{
+
+    transition:.35s;
+
+    cursor:pointer;
+
+}
+
+.quick-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.18)!important;
+
+}
+
+.quick-card i{
+
+    transition:.35s;
+
+}
+
+.quick-card:hover i{
+
+    transform:scale(1.15);
+
+}
+
+.progress{
+
+    border-radius:30px;
+
+    background:#e9ecef;
+
+}
+
+.progress-bar{
+
+    border-radius:30px;
+
+    transition:width .6s ease;
+
+}

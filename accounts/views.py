@@ -132,6 +132,47 @@ def dashboard(request):
 
     saved_jobs = SavedJob.objects.filter(user=request.user).count()
 
+    profile = CandidateProfile.objects.filter(
+        user=request.user
+    ).first()
+
+    profile_completion = 0
+
+    if profile:
+
+        if request.user.username:
+            profile_completion += 10
+
+        if request.user.email:
+            profile_completion += 10
+
+        if profile.phone:
+            profile_completion += 10
+
+        if profile.city:
+            profile_completion += 10
+
+        if profile.skills:
+            profile_completion += 15
+
+        if profile.experience:
+            profile_completion += 10
+
+        if profile.resume:
+            profile_completion += 15
+
+        if profile.profile_image:
+            profile_completion += 10
+
+        if profile.github:
+            profile_completion += 5
+
+        if profile.linkedin:
+            profile_completion += 5
+
+        if profile.portfolio:
+            profile_completion += 10
+
     interviews = Interview.objects.filter(
     application__candidate=request.user
     ).select_related(
@@ -146,6 +187,7 @@ def dashboard(request):
     "saved_jobs": saved_jobs,
     "applications": applications,
     "interviews": interviews,
+    "profile_completion":profile_completion,
 }
 
     return render(

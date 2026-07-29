@@ -524,4 +524,177 @@ Dashboard
 
 </div>
 
+<div class="mt-5">
+
+    <h3 class="fw-bold mb-4">
+        <i class="bi bi-stars text-warning"></i>
+        Recommended Jobs
+    </h3>
+
+    <div class="row">
+
+        {% for job in recommended_jobs %}
+
+        <div class="col-md-6 col-lg-4 mb-4">
+
+            <div class="card border-0 shadow-sm rounded-4 h-100 dashboard-card">
+
+                <div class="card-body">
+
+                    <h5 class="fw-bold">
+                        {{ job.title }}
+                    </h5>
+
+                    <p class="text-muted mb-1">
+                        {{ job.company.name }}
+                    </p>
+
+                    <p class="small text-secondary">
+
+                        <i class="bi bi-geo-alt"></i>
+
+                        {{ job.location }}
+
+                    </p>
+
+                    <span class="badge bg-primary">
+
+                        {{ job.employment_type }}
+
+                    </span>
+
+                    <div class="mt-4">
+
+                        <a href="{% url 'job_detail' job.id %}"
+
+                           class="btn btn-primary rounded-pill">
+
+                            View Job
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="card border-0 shadow-sm rounded-4">
+
+                <div class="card-body text-center py-5">
+
+                    <i class="bi bi-search fs-1 text-muted"></i>
+
+                    <h4 class="mt-3">
+
+                        No Jobs Available
+
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<div class="mt-5">
+
+    <h3 class="fw-bold mb-4">
+        <i class="bi bi-clock-history text-primary"></i>
+        Recent Activity
+    </h3>
+
+    <div class="card border-0 shadow-sm rounded-4">
+
+        <div class="card-body">
+
+            {% for activity in recent_activities %}
+
+            <div class="d-flex align-items-start mb-4">
+
+                <div class="me-3">
+
+                    <div class="activity-icon">
+
+                        <i class="bi bi-briefcase-fill"></i>
+
+                    </div>
+
+                </div>
+
+                <div class="flex-grow-1">
+
+                    <h6 class="fw-bold mb-1">
+
+                        Applied for
+                        {{ activity.job.title }}
+
+                    </h6>
+
+                    <p class="text-muted mb-1">
+
+                        {{ activity.job.company.name }}
+
+                    </p>
+
+                    <small class="text-secondary">
+
+                        {{ activity.applied_at|timesince }} ago
+
+                    </small>
+
+                </div>
+
+                <span class="badge bg-success">
+
+                    Applied
+
+                </span>
+
+            </div>
+
+            {% if not forloop.last %}
+            <hr>
+            {% endif %}
+
+            {% empty %}
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-clock-history display-4 text-muted"></i>
+
+                <h5 class="mt-3">
+
+                    No Recent Activity
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Your job activities will appear here.
+
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}

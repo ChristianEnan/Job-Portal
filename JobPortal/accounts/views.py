@@ -130,6 +130,17 @@ def dashboard(request):
 
     total_companies = Company.objects.count()
 
+    recommended_jobs = Job.objects.filter(
+    is_active=True
+).select_related("company").order_by("-created_at")[:6]
+
+    recent_activities = Application.objects.filter(
+    candidate=request.user
+).select_related(
+    "job",
+    "job__company"
+).order_by("-applied_at")[:5]
+
     saved_jobs = SavedJob.objects.filter(user=request.user).count()
 
     profile = CandidateProfile.objects.filter(
@@ -188,6 +199,8 @@ def dashboard(request):
     "applications": applications,
     "interviews": interviews,
     "profile_completion":profile_completion,
+    "recommended_jobs": recommended_jobs,
+    "recent_activities": recent_activities,
 }
 
     return render(

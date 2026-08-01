@@ -37,4 +37,6 @@ class CandidateProfileForm(forms.ModelForm):
             'linkedin': forms.URLInput(attrs={'class': 'form-control'}),
 
             'portfolio': forms.URLInput(attrs={'class': 'form-control'}),
+
+            "profile_image": forms.FileInput(attrs={"class": "form-control","id": "id_profile_image"}),
         }

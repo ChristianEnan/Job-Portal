@@ -6,57 +6,230 @@ My Profile
 
 {% block content %}
 
-<div class="container mt-5" style="max-width:800px;">
+<div class="container py-5">
 
-<div class="card shadow p-4">
+    <div class="row g-4">
 
-<h2 class="mb-4">My Profile</h2>
+        <!-- Left Profile Card -->
+        <div class="col-lg-4">
 
-<form method="POST" enctype="multipart/form-data">
+            <div class="card border-0 shadow rounded-4 p-4 text-center">
 
-{% csrf_token %}
+                <div class="mt-3">
 
-{{ form.as_p }}
+                    {% if profile.profile_image %}
 
-<button class="btn btn-primary">
+                    <img
+                        id="previewImage"
+                        src="{{ profile.profile_image.url }}"
+                        class="rounded-circle shadow"
+                        width="170"
+                        height="170"
+                        style="object-fit:cover;">
 
-Save Profile
+                    {% else %}
 
-</button>
+                    <img
+                        id="previewImage"
+                        src="https://via.placeholder.com/170x170.png?text=Profile"
+                        class="rounded-circle shadow"
+                        width="170"
+                        height="170"
+                        style="object-fit:cover;">
 
-</form>
+                    {% endif %}
 
-{% if profile.profile_image %}
+                </div>
 
-<hr>
+                <h3 class="fw-bold mt-3">
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </h3>
 
-<h5>Profile Photo</h5>
+                <p class="text-muted">
+                    Python Full Stack Developer
+                </p>
 
-<img src="{{ profile.profile_image.url }}"
-     width="150"
-     class="img-thumbnail mb-3">
+                {% if profile.city %}
+                <p>
+                    <i class="bi bi-geo-alt-fill text-danger"></i>
+                    {{ profile.city }}
+                </p>
+                {% endif %}
 
-{% endif %}
+                <hr>
 
+                <h6 class="fw-bold">
+                    Profile Completion
+                </h6>
 
-{% if profile.resume %}
+                <div class="progress mb-2">
 
-<hr>
+                    <div
+                        class="progress-bar bg-primary"
+                        style="width: {{ profile_completion }}%;">
 
-<h5>Resume</h5>
+                    </div>
 
-<a href="{{ profile.resume.url }}"
-   target="_blank"
-   class="btn btn-success">
+                </div>
 
-    Download Resume
+                <strong>
+                    {{ profile_completion }}%
+                </strong>
 
-</a>
+            </div>
 
-{% endif %}
+        </div>
+
+        <!-- Right Side -->
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow rounded-4 p-4">
+
+                <h3 class="fw-bold mb-4">
+                    <i class="bi bi-person-vcard"></i>
+                    My Profile
+                </h3>
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                Phone Number
+                            </label>
+                            {{ form.phone }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                City
+                            </label>
+                            {{ form.city }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                Experience
+                            </label>
+                            {{ form.experience }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                GitHub
+                            </label>
+                            {{ form.github }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                LinkedIn
+                            </label>
+                            {{ form.linkedin }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                Portfolio
+                            </label>
+                            {{ form.portfolio }}
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-semibold">
+                                Skills
+                            </label>
+                            {{ form.skills }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                Resume
+                            </label>
+                            {{ form.resume }}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-semibold">
+                                Profile Photo
+                            </label>
+                            {{ form.profile_image }}
+                        </div>
+
+                    </div>
+
+                    <div class="text-end mt-3">
+
+                        <button class="btn btn-primary rounded-pill">
+
+                            <i class="bi bi-floppy"></i>
+
+                            Save Changes
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            {% if profile.resume %}
+
+            <div class="card border-0 shadow rounded-4 p-4 mt-4">
+
+                <h4 class="fw-bold">
+
+                    Resume
+
+                </h4>
+
+                <a
+                    href="{{ profile.resume.url }}"
+                    target="_blank"
+                    class="btn btn-success rounded-pill">
+
+                    <i class="bi bi-download"></i>
+
+                    Download Resume
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
+<script>
+
+const imageInput = document.getElementById("id_profile_image");
+
+const preview = document.getElementById("previewImage");
+
+if(imageInput){
+
+    imageInput.addEventListener("change", function(){
+
+        const file = this.files[0];
+
+        if(file){
+
+            preview.src = URL.createObjectURL(file);
+
+        }
+
+    });
+
+}
+
+</script>
 
 {% endblock %}

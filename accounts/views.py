@@ -77,7 +77,6 @@ def user_logout(request):
 
     
 @login_required
-    
 def profile(request):
 
     profile, created = CandidateProfile.objects.get_or_create(
@@ -102,18 +101,52 @@ def profile(request):
 
         form = CandidateProfileForm(instance=profile)
 
+    profile_completion = 0
+
+    if request.user.username:
+        profile_completion += 10
+
+    if request.user.email:
+        profile_completion += 10
+
+    if profile.phone:
+        profile_completion += 10
+
+    if profile.city:
+        profile_completion += 10
+
+    if profile.skills:
+        profile_completion += 15
+
+    if profile.experience:
+        profile_completion += 10
+
+    if profile.resume:
+        profile_completion += 15
+
+    if profile.profile_image:
+        profile_completion += 10
+
+    if profile.github:
+        profile_completion += 5
+
+    if profile.linkedin:
+        profile_completion += 5
+
+    if profile.portfolio:
+        profile_completion += 10
+
     return render(
         request,
         "accounts/profile.html",
         {
             "form": form,
-            "profile": profile
+            "profile": profile,
+            "profile_completion": profile_completion,
         }
     )
 
-    logout(request)
 
-    return redirect("home")
 
 @login_required
 def dashboard(request):

@@ -529,3 +529,17 @@ input[type="file"]{
     padding:10px;
 
 }
+
+.profile-banner{
+    height:180px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+#previewImage{
+    transition:0.4s;
+    cursor:pointer;
+}
+
+#previewImage:hover{
+    transform:scale(1.05);
+}

@@ -311,3 +311,17 @@ def delete_job(request, pk):
             "job": job
         }
     )
+
+def job_list(request):
+
+    jobs = Job.objects.filter(
+        is_active=True
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "jobs/job_list.html",
+        {
+            "jobs": jobs
+        }
+    )

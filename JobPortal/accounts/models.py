@@ -58,3 +58,16 @@ class CandidateProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def split_skills(self):
+
+        if self.skills:
+
+            return [
+              skill.strip()
+              for skill in self.skills.split(",")
+              if skill.strip()
+          ]
+
+        return []

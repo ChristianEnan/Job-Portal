@@ -7,9 +7,8 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import CandidateProfile
 from .forms import CandidateProfileForm
 from jobs.models import Job, Company
-from applications.models import Application
-from applications.models import SavedJob
-from applications.models import Interview
+from applications.models import Application, SavedJob, Interview
+
 
 def register(request):
 
@@ -83,6 +82,18 @@ def profile(request):
         user=request.user
     )
 
+    applied_jobs = Application.objects.filter(
+        candidate=request.user
+    ).count()
+
+    saved_jobs = SavedJob.objects.filter(
+        user=request.user
+    ).count()
+
+    interviews = Interview.objects.filter(
+        application__candidate=request.user
+    ).count()
+
     if request.method == "POST":
 
         form = CandidateProfileForm(
@@ -143,9 +154,11 @@ def profile(request):
             "form": form,
             "profile": profile,
             "profile_completion": profile_completion,
+            "applied_jobs": applied_jobs,
+            "saved_jobs": 0,
+            "interviews": interviews,
         }
     )
-
 
 
 @login_required

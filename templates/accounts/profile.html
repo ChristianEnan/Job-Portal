@@ -13,51 +13,46 @@ My Profile
         <!-- Left Profile Card -->
         <div class="col-lg-4">
 
-    <div class="card border-0 shadow rounded-4 overflow-hidden">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
-        <!-- Banner -->
-        <div class="profile-banner"></div>
+        <!-- Cover Banner -->
+        <div class="profile-banner position-relative">
 
-        <!-- Profile Image -->
-        <div class="text-center" style="margin-top:-70px;">
+            <div class="profile-photo-wrapper">
 
-            {% if profile.profile_image %}
+                {% if profile.profile_image %}
 
-            <img
-                id="previewImage"
-                src="{{ profile.profile_image.url }}"
-                class="rounded-circle border border-5 border-white shadow-lg"
-                width="170"
-                height="170"
-                style="object-fit:cover;">
+                <img
+                    id="previewImage"
+                    src="{{ profile.profile_image.url }}"
+                    class="profile-photo">
 
-            {% else %}
+                {% else %}
 
-            <img
-                id="previewImage"
-                src="https://via.placeholder.com/170x170.png?text=Profile"
-                class="rounded-circle border border-5 border-white shadow-lg"
-                width="170"
-                height="170"
-                style="object-fit:cover;">
+                <img
+                    id="previewImage"
+                    src="https://via.placeholder.com/170x170.png?text=Profile"
+                    class="profile-photo">
 
-            {% endif %}
+                {% endif %}
+
+            </div>
 
         </div>
 
-        <div class="card-body text-center">
+        <div class="card-body text-center pt-5">
 
             <h3 class="fw-bold mb-1">
                 {{ request.user.get_full_name|default:request.user.username }}
             </h3>
 
-            <p class="text-primary fw-semibold">
+            <p class="text-primary fw-semibold mb-2">
                 Python Full Stack Developer
             </p>
 
             {% if profile.city %}
 
-            <p class="text-muted">
+            <p class="text-muted mb-3">
 
                 <i class="bi bi-geo-alt-fill text-danger"></i>
 
@@ -67,33 +62,142 @@ My Profile
 
             {% endif %}
 
+            <div class="d-grid gap-2">
+
+                <a href="#profileForm"
+                   class="btn btn-primary rounded-pill">
+
+                    <i class="bi bi-pencil-square"></i>
+
+                    Edit Profile
+
+                </a>
+
+                {% if profile.resume %}
+
+                <a href="{{ profile.resume.url }}"
+                   target="_blank"
+                   class="btn btn-outline-success rounded-pill">
+
+                    <i class="bi bi-download"></i>
+
+                    Download Resume
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
             <hr>
 
             <h6 class="fw-bold">
+
                 Profile Completion
+
             </h6>
 
-            <div class="progress rounded-pill" style="height:10px;">
+            <div class="progress rounded-pill"
+                 style="height:10px;">
 
                 <div
+                    id="profileProgress"
                     class="progress-bar bg-primary"
-                    style="width: {{ profile_completion }}%;">
+                    data-width="{{ profile_completion }}"
+                    style="width:0%;">
 
                 </div>
 
             </div>
 
-            <p class="mt-2 fw-bold">
+            <hr>
+
+<h6 class="fw-bold mb-3">
+    🌐 Connect With Me
+</h6>
+
+<div class="d-flex justify-content-center gap-3">
+
+    {% if profile.github %}
+    <a href="{{ profile.github }}"
+       target="_blank"
+       class="social-btn github">
+
+        <i class="bi bi-github"></i>
+
+    </a>
+    {% endif %}
+
+    {% if profile.linkedin %}
+    <a href="{{ profile.linkedin }}"
+       target="_blank"
+       class="social-btn linkedin">
+
+        <i class="bi bi-linkedin"></i>
+
+    </a>
+    {% endif %}
+
+    {% if profile.portfolio %}
+    <a href="{{ profile.portfolio }}"
+       target="_blank"
+       class="social-btn portfolio">
+
+        <i class="bi bi-globe"></i>
+
+    </a>
+    {% endif %}
+
+</div>
+
+<hr>
+
+<h6 class="fw-bold mb-3">
+
+    <i class="bi bi-stars text-warning"></i>
+
+    Skills
+
+</h6>
+
+{% if profile.skills %}
+
+<div class="d-flex flex-wrap gap-2">
+
+    {% for skill in profile.split_skills %}
+
+    <span class="badge skill-badge">
+
+        {{ skill }}
+
+    </span>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<p class="text-muted small">
+
+    No skills added yet.
+
+</p>
+
+{% endif %}
+
+            <div class="fw-bold mt-2">
 
                 {{ profile_completion }}%
 
-            </p>
+            </div>
 
         </div>
 
     </div>
 
 </div>
+
         <!-- Right Side -->
         <div class="col-lg-8">
 
@@ -104,7 +208,10 @@ My Profile
                     My Profile
                 </h3>
 
-                <form method="POST" enctype="multipart/form-data">
+                <form
+                    id="profileForm"
+                    method="POST"
+                    enctype="multipart/form-data">
 
                     {% csrf_token %}
 
@@ -191,30 +298,127 @@ My Profile
 
             </div>
 
-            {% if profile.resume %}
+{% if profile.resume %}
 
-            <div class="card border-0 shadow rounded-4 p-4 mt-4">
+<div class="card border-0 shadow rounded-4 p-4 mt-4">
 
-                <h4 class="fw-bold">
+    <div class="d-flex align-items-center">
 
-                    Resume
+        <!-- PDF Icon -->
 
-                </h4>
+        <div class="resume-icon me-3">
 
-                <a
-                    href="{{ profile.resume.url }}"
-                    target="_blank"
-                    class="btn btn-success rounded-pill">
+            <i class="bi bi-file-earmark-pdf-fill"></i>
 
-                    <i class="bi bi-download"></i>
+        </div>
 
-                    Download Resume
+        <!-- Resume Info -->
 
-                </a>
+        <div class="flex-grow-1">
+
+            <h5 class="fw-bold mb-1">
+
+                {{ profile.resume.name|cut:"resumes/" }}
+
+            </h5>
+
+            <small class="text-muted">
+
+                PDF Resume
+
+            </small>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="d-flex gap-2">
+
+        <a href="{{ profile.resume.url }}"
+           target="_blank"
+           class="btn btn-primary flex-fill">
+
+            <i class="bi bi-eye"></i>
+
+            Preview
+
+        </a>
+
+        <a href="{{ profile.resume.url }}"
+           download
+           class="btn btn-success flex-fill">
+
+            <i class="bi bi-download"></i>
+
+            Download
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+<div class="card border-0 shadow rounded-4 p-4 mt-4">
+
+    <h4 class="fw-bold mb-4">
+
+        <i class="bi bi-bar-chart-fill text-primary"></i>
+
+        My Statistics
+
+    </h4>
+
+    <div class="row g-3">
+
+        <div class="col-4">
+
+            <div class="stats-card">
+
+                <i class="bi bi-briefcase-fill text-primary"></i>
+
+                <h3>{{ applied_jobs }}</h3>
+
+                <small>Applied Jobs</small>
 
             </div>
 
-            {% endif %}
+        </div>
+
+        <div class="col-4">
+
+            <div class="stats-card">
+
+                <i class="bi bi-bookmark-heart-fill text-success"></i>
+
+                <h3>{{ saved_jobs }}</h3>
+
+                <small>Saved Jobs</small>
+
+            </div>
+
+        </div>
+
+        <div class="col-4">
+
+            <div class="stats-card">
+
+                <i class="bi bi-calendar-event-fill text-danger"></i>
+
+                <h3>{{ interviews }}</h3>
+
+                <small>Interviews</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
         </div>
 
@@ -241,6 +445,24 @@ if(imageInput){
         }
 
     });
+
+}
+
+</script>
+
+<script>
+
+const progress=document.getElementById("profileProgress");
+
+if(progress){
+
+    const width=progress.dataset.width;
+
+    setTimeout(function(){
+
+        progress.style.width=width+"%";
+
+    },300);
 
 }
 

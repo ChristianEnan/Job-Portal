@@ -531,15 +531,193 @@ input[type="file"]{
 }
 
 .profile-banner{
+
     height:180px;
+
     background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    position:relative;
 }
 
-#previewImage{
-    transition:0.4s;
-    cursor:pointer;
+.profile-photo-wrapper{
+
+    position:absolute;
+
+    bottom:-70px;
+
+    width:100%;
+
+    text-align:center;
 }
 
-#previewImage:hover{
-    transform:scale(1.05);
+.profile-photo{
+
+    width:150px;
+
+    height:150px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:6px solid white;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+    transition:.4s;
+}
+
+.profile-photo:hover{
+
+    transform:scale(1.06);
+}
+
+.card{
+
+    border-radius:20px;
+}
+
+.skill-badge{
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    color:white;
+
+    font-size:14px;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.skill-badge:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 15px rgba(0,0,0,.15);
+
+}
+
+.resume-icon{
+
+width:80px;
+height:80px;
+
+border-radius:20px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#ffeaea;
+
+font-size:45px;
+
+color:#dc3545;
+
+}
+
+.social-btn{
+
+width:50px;
+height:50px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border-radius:50%;
+
+font-size:22px;
+
+text-decoration:none;
+
+transition:.3s;
+
+color:white;
+
+}
+
+.github{
+
+background:#24292e;
+
+}
+
+.github:hover{
+
+background:black;
+transform:translateY(-5px);
+
+}
+
+.linkedin{
+
+background:#0A66C2;
+
+}
+
+.linkedin:hover{
+
+background:#084b94;
+transform:translateY(-5px);
+
+}
+
+.portfolio{
+
+background:#28a745;
+
+}
+
+.portfolio:hover{
+
+background:#1f7a34;
+transform:translateY(-5px);
+
+}
+
+.stats-card{
+
+padding:20px;
+
+border-radius:15px;
+
+background:#f8f9fa;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.stats-card:hover{
+
+transform:translateY(-6px);
+
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.stats-card i{
+
+font-size:35px;
+
+margin-bottom:10px;
+
+display:block;
+
+}
+
+.stats-card h3{
+
+font-weight:bold;
+
+margin-bottom:5px;
+
 }

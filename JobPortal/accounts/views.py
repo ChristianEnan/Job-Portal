@@ -155,7 +155,7 @@ def profile(request):
             "profile": profile,
             "profile_completion": profile_completion,
             "applied_jobs": applied_jobs,
-            "saved_jobs": 0,
+            "saved_jobs":saved_jobs,
             "interviews": interviews,
         }
     )
@@ -299,3 +299,15 @@ def update_application_status(request, pk):
             application.save()
 
     return redirect("admin_dashboard")
+
+@login_required
+def save_job(request, job_id):
+
+    job = get_object_or_404(Job, id=job_id)
+
+    SavedJob.objects.get_or_create(
+        user=request.user,
+        job=job
+    )
+
+    return redirect("job_detail", id=job.id)

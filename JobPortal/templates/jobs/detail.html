@@ -32,20 +32,19 @@
 
 {% if user.is_authenticated %}
 
-<form method="POST" action="{% url 'apply_job' job.id %}">
+<a href="{% url 'apply_job' job.id %}"
+   class="btn btn-primary w-100">
 
-{% csrf_token %}
+    Apply Now
 
-<button class="btn btn-success">
+</a>
 
-Apply Now
+<a href="{% url 'save_job' job.id %}"
+   class="btn btn-outline-danger mt-2 w-100">
 
-</button>
+    <i class="bi bi-bookmark-heart"></i>
+    Save Job
 
-</form>
-
-<a href="{% url 'save_job' job.id %}" class="btn btn-outline-primary ms-2">
-    <i class="bi bi-bookmark"></i> Save Job
 </a>
 
 {% else %}

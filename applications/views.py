@@ -7,7 +7,6 @@ from .models import Application, Interview
 from jobs.models import Job
 from .models import SavedJob
 
-
 @login_required
 def my_applications(request):
 
@@ -34,9 +33,9 @@ def save_job(request, job_id):
     )
 
     if created:
-        messages.success(request, "Job saved successfully.")
+        messages.success(request, "Job saved successfully ❤️")
     else:
-        messages.warning(request, "Job already saved.")
+        messages.info(request, "Job already saved.")
 
     return redirect("job_detail", id=job.id)
 
@@ -56,10 +55,6 @@ def saved_jobs(request):
         "applications/saved_jobs.html",
         context
     )
-
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from .models import SavedJob
 
 
 @login_required

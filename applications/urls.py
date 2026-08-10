@@ -37,4 +37,10 @@ urlpatterns = [
         views.applicants,
         name="applicants",
     ),
+
+    path(
+        "save/<int:job_id>/",
+        views.save_job,
+        name="save_job",
+   ),
 ]

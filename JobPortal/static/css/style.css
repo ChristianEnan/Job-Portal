@@ -530,47 +530,7 @@ input[type="file"]{
 
 }
 
-.profile-banner{
 
-    height:180px;
-
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-
-    position:relative;
-}
-
-.profile-photo-wrapper{
-
-    position:absolute;
-
-    bottom:-70px;
-
-    width:100%;
-
-    text-align:center;
-}
-
-.profile-photo{
-
-    width:150px;
-
-    height:150px;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
-    border:6px solid white;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
-
-    transition:.4s;
-}
-
-.profile-photo:hover{
-
-    transform:scale(1.06);
-}
 
 .card{
 
@@ -719,5 +679,92 @@ display:block;
 font-weight:bold;
 
 margin-bottom:5px;
+
+}
+
+/* Banner */
+
+.profile-banner{
+
+    height:120px;
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+}
+
+/* Profile Photo */
+
+.profile-photo-wrapper{
+    position:relative;
+    margin-top:-60px;
+    display:flex;
+    justify-content:center;
+}
+
+.profile-photo{
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:6px solid white;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+
+    transition:.3s;
+
+}
+
+.profile-photo:hover{
+
+    transform:scale(1.04);
+
+}
+
+/* Camera Button */
+
+.camera-btn{
+
+    position:absolute;
+
+    right:10px;
+
+    bottom:10px;
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.25);
+
+    transition:.3s;
+
+}
+
+.camera-btn:hover{
+
+    background:#1d4ed8;
+
+    transform:scale(1.1);
 
 }

@@ -16,29 +16,27 @@ My Profile
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 
         <!-- Cover Banner -->
-        <div class="profile-banner position-relative">
+        <div class="profile-banner"></div>
 
-            <div class="profile-photo-wrapper">
+        <!-- Profile Photo -->
+        <div class="profile-photo-wrapper">
 
-                {% if profile.profile_image %}
+            {% if profile.profile_image %}
+                <img id="previewImage"
+                     src="{{ profile.profile_image.url }}"
+                     class="profile-photo">
+            {% else %}
+                <img id="previewImage"
+                     src="https://via.placeholder.com/180"
+                     class="profile-photo">
+            {% endif %}
 
-                <img
-                    id="previewImage"
-                    src="{{ profile.profile_image.url }}"
-                    class="profile-photo">
-
-                {% else %}
-
-                <img
-                    id="previewImage"
-                    src="https://via.placeholder.com/170x170.png?text=Profile"
-                    class="profile-photo">
-
-                {% endif %}
-
-            </div>
+            <label for="id_profile_image" class="camera-btn">
+                <i class="bi bi-camera-fill"></i>
+            </label>
 
         </div>
+
 
         <div class="card-body text-center pt-5">
 
@@ -278,6 +276,12 @@ My Profile
                                 Profile Photo
                             </label>
                             {{ form.profile_image }}
+
+                                <style>
+                                    #id_profile_image{
+                                    display:none;
+                                }
+                                </style>
                         </div>
 
                     </div>
@@ -428,25 +432,17 @@ My Profile
 
 <script>
 
-const imageInput = document.getElementById("id_profile_image");
+document.getElementById("id_profile_image").addEventListener("change",function(e){
 
-const preview = document.getElementById("previewImage");
+    const file=e.target.files[0];
 
-if(imageInput){
+    if(file){
 
-    imageInput.addEventListener("change", function(){
+        document.getElementById("previewImage").src=URL.createObjectURL(file);
 
-        const file = this.files[0];
+    }
 
-        if(file){
-
-            preview.src = URL.createObjectURL(file);
-
-        }
-
-    });
-
-}
+});
 
 </script>
 
@@ -467,5 +463,6 @@ if(progress){
 }
 
 </script>
+
 
 {% endblock %}

@@ -6,24 +6,303 @@ Register
 
 {% block content %}
 
-<div class="container mt-5" style="max-width:550px;">
+<div class="register-page py-5">
 
-<h2>Create Account</h2>
+    <div class="container">
 
-<form method="POST">
+        <div class="row justify-content-center">
 
-{% csrf_token %}
+            <div class="col-lg-10">
 
-{{ form.as_p }}
+                <div class="row g-0 register-card shadow-lg overflow-hidden">
 
-<button class="btn btn-success">
+    <!-- Left Side -->
+    <div class="col-lg-5 register-left">
 
-Register
+        <div class="left-content">
 
-</button>
+            <i class="bi bi-briefcase-fill display-2 mb-4"></i>
 
-</form>
+            <h2 class="fw-bold">
+                Welcome to JobPortal
+            </h2>
+
+            <p class="mt-3">
+
+                Find your dream job with thousands of verified companies.
+
+            </p>
+
+            <div class="feature mt-4">
+                <i class="bi bi-check-circle-fill"></i>
+                Easy Job Apply
+            </div>
+
+            <div class="feature">
+                <i class="bi bi-check-circle-fill"></i>
+                AI Resume Support
+            </div>
+
+            <div class="feature">
+                <i class="bi bi-check-circle-fill"></i>
+                Track Applications
+            </div>
+
+            <div class="feature">
+                <i class="bi bi-check-circle-fill"></i>
+                Save Favourite Jobs
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Side -->
+    <div class="col-lg-7">
+
+        <div class="p-5">
+
+                    <div class="text-center mb-4">
+
+                        <div class="register-icon">
+                            <i class="bi bi-person-plus-fill"></i>
+                        </div>
+
+                        <h2 class="fw-bold mt-3">
+                            Create Account
+                        </h2>
+
+                        <p class="text-muted">
+                            Join JobPortal and start your career journey.
+                        </p>
+
+                    </div>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        {% for field in form %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-semibold">
+
+                                {{ field.label }}
+
+                            </label>
+
+                        {% if field.name == "password1" %}
+
+                    <div class="position-relative">
+
+                         {{ field }}
+
+                            <span class="password-toggle">
+
+                                <i class="bi bi-eye"></i>
+
+                            </span>
+
+                    </div>
+
+                    <div class="password-strength mt-2">
+
+                    <div class="progress" style="height:8px;">
+
+                    <div
+                        id="strengthBar"
+                        class="progress-bar"
+                        style="width:0%;">
+
+                    </div>
+
+                    </div>
+
+                <small
+                    id="strengthText"
+                    class="text-muted">
+
+                        Password Strength
+
+                </small>
+
+                    </div>
+
+{% elif field.name == "password2" %}
+
+<div class="position-relative">
+
+    {{ field }}
+
+    <span class="password-toggle">
+        <i class="bi bi-eye"></i>
+    </span>
 
 </div>
+
+{% else %}
+
+{{ field }}
+
+{% endif %}
+
+                            {% if field.help_text %}
+                            <small class="text-muted d-block mt-1">
+                                {{ field.help_text }}
+                            </small>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                        {% endfor %}
+
+                        <button class="btn btn-primary w-100 rounded-pill py-2">
+
+                            <i class="bi bi-person-check-fill"></i>
+
+                            Create Account
+
+                        </button>
+
+                    </form>
+
+                    <hr>
+
+                    <div class="text-center">
+
+                        Already have an account?
+
+                        <a href="{% url 'login' %}"
+                           class="fw-bold text-decoration-none">
+
+                            Login
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.querySelectorAll(".password-toggle").forEach(function(btn){
+
+    btn.addEventListener("click",function(){
+
+        let input = this.parentElement.querySelector("input");
+
+        let icon=this.querySelector("i");
+
+        if(input.type==="password"){
+
+            input.type="text";
+
+            icon.classList.remove("bi-eye");
+
+            icon.classList.add("bi-eye-slash");
+
+        }
+
+        else{
+
+            input.type="password";
+
+            icon.classList.remove("bi-eye-slash");
+
+            icon.classList.add("bi-eye");
+
+        }
+
+    });
+
+});
+
+</script>
+
+<script>
+
+const passwordInput = document.querySelector('input[name="password1"]');
+
+const strengthBar = document.getElementById("strengthBar");
+
+const strengthText = document.getElementById("strengthText");
+
+passwordInput.addEventListener("input", function(){
+
+    let password = this.value;
+
+    let score = 0;
+
+    if(password.length >= 8)
+        score++;
+
+    if(/[A-Z]/.test(password))
+        score++;
+
+    if(/[0-9]/.test(password))
+        score++;
+
+    if(/[!@#$%^&*(),.?":{}|<>]/.test(password))
+        score++;
+
+    if(score==0){
+
+        strengthBar.style.width="0%";
+        strengthBar.className="progress-bar";
+        strengthText.innerHTML="Password Strength";
+
+    }
+
+    else if(score==1){
+
+        strengthBar.style.width="25%";
+        strengthBar.className="progress-bar bg-danger";
+        strengthText.innerHTML="🔴 Weak";
+
+    }
+
+    else if(score==2){
+
+        strengthBar.style.width="50%";
+        strengthBar.className="progress-bar bg-warning";
+        strengthText.innerHTML="🟡 Medium";
+
+    }
+
+    else if(score==3){
+
+        strengthBar.style.width="75%";
+        strengthBar.className="progress-bar bg-info";
+        strengthText.innerHTML="🟢 Good";
+
+    }
+
+    else{
+
+        strengthBar.style.width="100%";
+        strengthBar.className="progress-bar bg-success";
+        strengthText.innerHTML="🟢 Strong";
+
+    }
+
+});
+
+
+</script>
 
 {% endblock %}

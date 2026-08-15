@@ -35,11 +35,21 @@ href="{% static 'css/style.css' %}">
 
 <div class="container">
 
-<a class="navbar-brand fw-bold fs-3" href="/">
+<div class="d-flex align-items-center">
 
-<span style="color:#2563eb;">Job</span>Portal
+    <button
+        onclick="goBack()"
+        class="btn btn-light border rounded-circle me-3 back-btn">
 
-</a>
+        <i class="bi bi-arrow-left"></i>
+
+    </button>
+
+    <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+        JobPortal
+    </a>
+
+</div>
 
 <button
 class="navbar-toggler"
@@ -75,7 +85,9 @@ id="nav">
 
 
 <li class="nav-item">
-<a class="nav-link" href="#">About</a>
+<a class="nav-link" href="{% url 'about' %}">
+    About
+</a>
 </li>
 
 {% if user.is_authenticated %}
@@ -333,6 +345,24 @@ Logout
 </div>
 
 </div>
+
+<script>
+
+function goBack(){
+
+    if(document.referrer){
+
+        history.back();
+
+    }else{
+
+        window.location.href="{% url 'home' %}";
+
+    }
+
+}
+
+</script>
 
 </body>
 </html>                                                                                                                                                     

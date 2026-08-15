@@ -311,3 +311,6 @@ def save_job(request, job_id):
     )
 
     return redirect("job_detail", id=job.id)
+
+def about(request):
+    return render(request, "about.html")

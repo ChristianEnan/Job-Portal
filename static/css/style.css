@@ -973,3 +973,361 @@ display:none;
     font-weight:600;
 
 }
+
+.back-btn{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.3s;
+
+}
+
+.back-btn:hover{
+
+    background:#2563eb;
+
+    color:#fff;
+
+    transform:translateX(-3px);
+
+}
+
+.about-hero{
+
+    padding:100px 0;
+
+    background:#f8faff;
+
+}
+
+.gradient-text{
+
+    background:linear-gradient(90deg,#2563eb,#7c3aed);
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.about-hero img{
+
+    border-radius:25px;
+
+    transition:.4s;
+
+}
+
+.about-hero img:hover{
+
+    transform:scale(1.03);
+
+}
+
+.about-card{
+
+    background:#fff;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+}
+
+.about-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 45px rgba(37,99,235,.18);
+
+}
+
+.icon-box{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+}
+
+.feature-card{
+
+    background:#fff;
+
+    padding:35px 25px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+    transition:.35s;
+
+    height:100%;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 18px 40px rgba(37,99,235,.15);
+
+}
+
+.feature-icon{
+
+    width:70px;
+
+    height:70px;
+
+    margin:auto;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:28px;
+
+    margin-bottom:20px;
+
+}
+
+.feature-card h5{
+
+    font-weight:700;
+
+    margin-bottom:15px;
+
+}
+
+.stats-section{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+.stats-card{
+    background:#fff;
+    border-radius:20px;
+    padding:35px 20px;
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.stats-card:hover{
+    transform:translateY(-10px);
+}
+
+.stats-card i{
+    font-size:42px;
+    color:#2563eb;
+    margin-bottom:15px;
+}
+
+.stats-card h2{
+    font-size:42px;
+    font-weight:700;
+    color:#111827;
+}
+
+.stats-card p{
+    color:#6b7280;
+    margin-top:10px;
+}
+
+.team-section{
+
+    background:#f8f9fc;
+
+}
+
+.team-card{
+
+    background:#fff;
+
+    padding:35px 25px;
+
+    border-radius:20px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+    transition:.35s;
+
+    height:100%;
+
+}
+
+.team-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 35px rgba(37,99,235,.18);
+
+}
+
+.team-img{
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:5px solid #2563eb;
+
+}
+
+
+.contact-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:45px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.contact-icon{
+
+    width:70px;
+
+    height:70px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:28px;
+
+}
+
+.social-btn{
+
+    width:50px;
+
+    height:50px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    margin:8px;
+
+    transition:.3s;
+
+    font-size:20px;
+
+}
+
+.social-btn:hover{
+
+    background:#7c3aed;
+
+    transform:translateY(-5px);
+
+    color:#fff;
+
+}
+
+.accordion-item{
+
+    border:none;
+
+    margin-bottom:15px;
+
+    border-radius:15px !important;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.accordion-button{
+
+    font-weight:600;
+
+    padding:18px;
+
+}
+
+.accordion-button:not(.collapsed){
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.cta-section{
+
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+    padding:90px 0;
+
+}
+
+.cta-section .btn{
+
+    transition:.3s;
+
+}
+
+.cta-section .btn:hover{
+
+    transform:translateY(-4px);
+
+}

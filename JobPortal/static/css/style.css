@@ -1331,3 +1331,105 @@ display:none;
     transform:translateY(-4px);
 
 }
+
+.company-logo-preview{
+
+    width:160px;
+
+    height:160px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    border:4px solid #2563eb;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.12);
+
+    transition:.35s;
+
+}
+
+.company-logo-preview:hover{
+
+    transform:scale(1.05);
+
+}
+
+.form-floating{
+
+    margin-bottom:20px;
+
+}
+
+.form-floating .form-control{
+
+    height:58px;
+
+    border-radius:14px;
+
+    border:1px solid #dbe4f0;
+
+    transition:.3s;
+
+}
+
+.form-floating textarea.form-control{
+
+    height:140px;
+
+}
+
+.form-floating .form-control:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 15px rgba(37,99,235,.15);
+
+}
+
+.form-floating label{
+
+    color:#64748b;
+
+    font-weight:500;
+
+}
+
+.job-highlight-card{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    border:1px solid #e9eef6;
+
+    transition:.35s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+
+}
+
+.job-highlight-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 35px rgba(37,99,235,.15);
+
+}
+
+.job-highlight-card h6{
+
+    font-weight:700;
+
+}
+
+.job-highlight-card p{
+
+    font-size:15px;
+
+}
